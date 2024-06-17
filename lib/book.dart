@@ -1,12 +1,17 @@
+import 'dart:developer';
+
 class Book{
   String title;
   String summary;
 
-  Book(String title, String summary){
-    this.title = title;
-    this.summary = summary;
-  }
+  Book(this.title, this.summary);
 
+  String getTitle() {
+    return title;
+  }
 }
 
-
+void main() {
+    Book idk = Book("random title", "random summary");
+    print(idk.getTitle());
+}
