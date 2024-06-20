@@ -64,7 +64,6 @@ import 'package:flutter/material.dart';
 //                     ),
 //                   ),
 //                 ),
-//
 //               ],
 //             ),
 //           ),
@@ -75,12 +74,11 @@ import 'package:flutter/material.dart';
 // }
 
 
-
-
 class Book extends StatelessWidget {
   final String title;
   final String summary;
-  Book(this.title, this.summary);
+  final String author;
+  Book(this.title, this.author, this.summary);
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +129,18 @@ void main() {
   runApp(MaterialApp(
     home: Scaffold(
       body: Center(
-        child: Book('My Book Title', "summary"),
+        child: Book('Harry Potter and the Order of the Phoenix',
+            'J. K. Rowling', 'Now in his fifth year at Hogwarts, '
+            'Harry (Daniel Radcliffe) learns that many in the '
+            'wizarding community do not know the truth of his '
+            'encounter with Lord Voldemort. Cornelius Fudge, '
+            'minister of Magic, appoints his toady, Dolores '
+            'Umbridge, as Defense Against the Dark Arts teacher'
+            ', for he fears that professor Dumbledore will take'
+            ' his job. But her teaching is deficient and her '
+            'methods, cruel, so Harry prepares a group of '
+            'students to defend the school against a rising '
+            'tide of evil.'),
       ),
     ),
   ));
