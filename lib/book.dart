@@ -79,8 +79,8 @@ import 'package:flutter/material.dart';
 
 class Book extends StatelessWidget {
   final String title;
-
-  Book(this.title);
+  final String summary;
+  Book(this.title, this.summary);
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +131,7 @@ void main() {
   runApp(MaterialApp(
     home: Scaffold(
       body: Center(
-        child: Book('My Book Title'),
+        child: Book('My Book Title', "summary"),
       ),
     ),
   ));
