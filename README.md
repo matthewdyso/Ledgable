@@ -1,8 +1,8 @@
-
 # Ledgable**
-**
 A new Flutter project.
+
 Developed for IOS and Android devices, Ledgable is a book app for readers by readers. 
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
