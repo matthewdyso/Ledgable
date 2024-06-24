@@ -139,6 +139,7 @@ void main() {
             Book('Harry Potter and the Order of the Phoenix', 'J. K. Rowling', 'massive yap', 10, 100),
             Book('Game of Thrones', 'George RR Martin', 'massive yap', 70, 100),
             Book('IDK anymore', 'J. K. Rowling', 'massive yap', 130, 100),
+            Book('Random Book', 'J. K. Rowling', 'massive yap', 190, 100),
           ],
         ),
       ),
