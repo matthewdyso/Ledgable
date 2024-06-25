@@ -61,6 +61,7 @@ class BookUI extends StatelessWidget {
                 quarterTurns: -3,
                 child: Text(
                   bookData.title,
+                  textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: Colors.blue,
                     fontWeight: FontWeight.bold,
