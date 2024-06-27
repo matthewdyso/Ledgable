@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Book{
+class Book {
   String title;
   String summary;
   String author;
-  double y;
-  double x;
 
-  Book(this.title, this.author, this.summary, this.x, this.y);
+  Book(this.title, this.author, this.summary);
 
   // Setter methods for updating properties
   void setTitle(String newTitle) {
@@ -21,26 +19,27 @@ class Book{
   void setAuthor(String newAuthor) {
     author = newAuthor;
   }
-
-  void setPosition(double newX, double newY) {
-    x = newX;
-    y = newY;
-  }
-
 }
 
-class BookUI extends StatelessWidget {
+class BookUI extends StatefulWidget {
   final Book bookData;
+  final double y;
+  final double x;
 
-  const BookUI(this.bookData, {Key? key}) : super(key: key);
+  const BookUI(this.bookData, this.x, this.y, {Key? key}) : super(key: key);
 
+  @override
+  State<BookUI> createState() => _BookUIState();
+}
+
+class _BookUIState extends State<BookUI> {
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Positioned(
-          top: bookData.y,
-          left: bookData.x,
+          top: widget.y,
+          left: widget.x,
           child: Container(
             width: 50,
             height: 150,
@@ -60,7 +59,7 @@ class BookUI extends StatelessWidget {
               child: RotatedBox(
                 quarterTurns: -3,
                 child: Text(
-                  bookData.title,
+                  widget.bookData.title,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: Colors.blue,
@@ -74,28 +73,4 @@ class BookUI extends StatelessWidget {
       ],
     );
   }
-}
-
-
-void main() {
-
-  Book harryPotter = Book('Harry Potter and the Order of the Phoenix', 'J. K. Rowling', 'massive yap', 10, 100);
-  Book got = Book('Game of Thrones', 'George RR Martin', 'massive yap', 70, 100);
-  Book idk = Book('IDK anymore', 'J. K. Rowling', 'massive yap', 130, 100);
-  Book random = Book('Random Book', 'J. K. Rowling', 'massive yap', 190, 100);
-
-  runApp(MaterialApp(
-    home: Scaffold(
-      body: Center(
-        child: Stack(
-          children: [
-            BookUI(harryPotter),
-            BookUI(got),
-            BookUI(idk),
-            BookUI(random),
-          ],
-        ),
-      ),
-    ),
-  ));
 }
