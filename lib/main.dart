@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ledgable/book_form.dart';
 import 'book.dart';
 
 class LedgableApp extends StatelessWidget {
@@ -11,10 +12,10 @@ class LedgableApp extends StatelessWidget {
     Book idk = Book('IDK anymore', 'J. K. Rowling', 'IDK man this aint a book');
     Book random = Book('Random Book', 'J. K. Rowling', 'probability of me being a book = 0');
 
-    void handleBookPress(Book book) {
-      print('Pressed: ${book.summary}');
-    }
 
+    void handleBookPress(Book book){
+      print(book.summary);
+    }
 
     return MaterialApp(
       title: 'Ledgable App',

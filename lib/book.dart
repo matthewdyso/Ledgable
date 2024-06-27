@@ -23,27 +23,51 @@ class Book {
 
 class BookUI extends StatefulWidget {
   final Book bookData;
-  final double y;
-  final double x;
+  final double initialX;
+  final double initialY;
   final VoidCallback onPress;
 
-  const BookUI(this.bookData, this.x, this.y, {required this.onPress, Key? key}) : super(key: key);
+  const BookUI(this.bookData, this.initialX, this.initialY, {required this.onPress, Key? key}) : super(key: key);
 
   @override
   State<BookUI> createState() => _BookUIState();
 }
 
 class _BookUIState extends State<BookUI> {
+  late Book bookData;
+  late double x;
+  late double y;
+
+  @override
+  void initState() {
+    super.initState();
+    bookData = widget.bookData;
+    x = widget.initialX;
+    y = widget.initialY;
+  }
+
+  void updateBookData(Book newBookData) {
+    setState(() {
+      bookData = newBookData;
+    });
+  }
+
+  void updatePosition(double newX, double newY) {
+    setState(() {
+      x = newX;
+      y = newY;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Positioned(
-          top: widget.y,
-          left: widget.x,
-          child:GestureDetector(
+          top: y,
+          left: x,
+          child: GestureDetector(
             onTap: widget.onPress,
-
             child: Container(
               width: 50,
               height: 150,
@@ -63,7 +87,7 @@ class _BookUIState extends State<BookUI> {
                 child: RotatedBox(
                   quarterTurns: -3,
                   child: Text(
-                    widget.bookData.title,
+                    bookData.title,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       color: Colors.blue,
@@ -74,7 +98,7 @@ class _BookUIState extends State<BookUI> {
               ),
             ),
           ),
-        )
+        ),
       ],
     );
   }
