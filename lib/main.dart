@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ledgable/book_form.dart';
 import 'book.dart';
 
 class LedgableApp extends StatelessWidget {
@@ -24,7 +23,7 @@ class LedgableApp extends StatelessWidget {
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Books Display'),
+          title: const Text('Books Display'),
         ),
         body: Center(
           child: Stack(
