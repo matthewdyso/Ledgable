@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'book.dart';
 
+//Stateless widget does not change, basically the background of the app
 class LedgableApp extends StatelessWidget {
   const LedgableApp({super.key});
 
@@ -11,13 +12,12 @@ class LedgableApp extends StatelessWidget {
     Book idk = Book('IDK anymore', 'J. K. Rowling', 'IDK man this aint a book');
     Book random = Book('Random Book', 'J. K. Rowling', 'probability of me being a book = 0');
 
-
     void handleBookPress(Book book){
       print(book.summary);
     }
 
     return MaterialApp(
-      title: 'Ledgable App',
+      title: 'Ledgable',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -28,10 +28,13 @@ class LedgableApp extends StatelessWidget {
         body: Center(
           child: Stack(
             children: [
-              BookUI(harryPotter, 10, 100, onPress: () => handleBookPress(harryPotter)),
-              BookUI(got, 70, 100, onPress: () => handleBookPress(got)),
-              BookUI(idk, 130, 100, onPress: () => handleBookPress(idk)),
-              BookUI(random, 190, 100, onPress: () => handleBookPress(random)),
+              // x increments by values of 60
+              BookUI(harryPotter, 5, 100, onPress: () => handleBookPress(harryPotter)),
+              BookUI(got, 65, 100, onPress: () => handleBookPress(got)),
+              BookUI(idk, 125, 100, onPress: () => handleBookPress(idk)),
+              BookUI(random, 185, 100, onPress: () => handleBookPress(random)),
+              BookUI(harryPotter, 245, 100, onPress: () => handleBookPress(harryPotter)),
+              BookUI(harryPotter, 305, 100, onPress: () => handleBookPress(harryPotter)),
             ],
           ),
         ),
