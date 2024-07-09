@@ -9,7 +9,7 @@ class Book {
   String author;
   String summary;
 
-  // Accepts 3 arguments
+  // Constructor accepts 3 arguments
   Book(this.title, this.author, this.summary);
 
   // Setter methods for updating properties
