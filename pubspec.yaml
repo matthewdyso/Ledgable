@@ -59,7 +59,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/Ledgable.png
+    - assets/Ledgable_logo.png
     - assets/Ledgable_icon.png
   # To add assets to your application, add an assets section, like this:
   # assets:
