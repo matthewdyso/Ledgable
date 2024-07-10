@@ -17,7 +17,6 @@ class LedgableApp extends StatelessWidget {
       print(book.summary);
     }
 
-
     return MaterialApp(
       title: 'Ledgable',
       theme: ThemeData(

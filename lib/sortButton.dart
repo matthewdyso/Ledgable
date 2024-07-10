@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 
 List<String> options = ['Date', 'Title', 'Author'];
-enum Options { Date, Title, Author }
+enum Options {date, title, author}
 
 
 class SortButton extends StatefulWidget {
@@ -13,6 +13,8 @@ class SortButton extends StatefulWidget {
 }
 
 class _SortButtonState extends State<SortButton> {
+  Options? selectedMenu;
+  bool isToggled = false;
 
   // Implement your sorting logic here
   void sortData() {
@@ -24,10 +26,43 @@ class _SortButtonState extends State<SortButton> {
     });
   }
 
+  /*
+  1 = Newest to oldest
+  2 = Oldest to newest
+  3 = Title A-Z
+  4 = Title Z-A
+  5 = Author A-Z
+  6 = Author Z-A
+   */
+  // int getSelection() {
+  //   if(!isToggled) {
+  //     switch (selectedMenu) {
+  //       case Options.date:
+  //         return 1;
+  //       case Options.title:
+  //         return 3;
+  //       case Options.author:
+  //         return 5;
+  //       default:
+  //         return 1;
+  //     }
+  //   } else {
+  //     switch (selectedMenu) {
+  //       case Options.date:
+  //         return 2;
+  //       case Options.title:
+  //         return 4;
+  //       case Options.author:
+  //         return 6;
+  //       default:
+  //         return 1;
+  //     }
+  //   }
+  // }
+  //
+
   @override
   Widget build(BuildContext context) {
-    Options? selectedMenu;
-
     return MenuAnchor(
       builder:
           (BuildContext context, MenuController controller, Widget? child) {
@@ -44,7 +79,7 @@ class _SortButtonState extends State<SortButton> {
         );
       },
       menuChildren: List<MenuItemButton>.generate(
-            3,
+        3,
             (int index) =>
             MenuItemButton(
               onPressed: () =>
@@ -54,33 +89,31 @@ class _SortButtonState extends State<SortButton> {
       ),
     );
   }
-
 }
 
-/*
-
-Test for Dropdown menu
 
 
-void main() => runApp(const DropdownMenuApp());
 
-class DropdownMenuApp extends StatelessWidget {
-  const DropdownMenuApp({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(useMaterial3: true),
-      home: Scaffold(
-        appBar: AppBar(title: const Text('DropdownMenu Sample')),
-        body: const Center(
-          child: SortButton(),
-        ),
-      ),
-    );
-  }
-}
+// void main() => runApp(const DropdownMenuApp());
+//
+// class DropdownMenuApp extends StatelessWidget {
+//   const DropdownMenuApp({super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       theme: ThemeData(useMaterial3: true),
+//       home: Scaffold(
+//         appBar: AppBar(title: const Text('DropdownMenu Sample')),
+//         body: const Center(
+//           child: SortButton(),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
- */
+
 
 
