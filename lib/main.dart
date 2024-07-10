@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'book.dart';
+import 'sortButton.dart';
 
 //Stateless widget does not change, basically the background of the app
 class LedgableApp extends StatelessWidget {
@@ -24,6 +25,8 @@ class LedgableApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Books Display'),
+          centerTitle: true,
+          actions: <Widget>[SortButton()],
         ),
         body: Center(
           child: Stack(
