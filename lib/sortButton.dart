@@ -34,32 +34,32 @@ class _SortButtonState extends State<SortButton> {
   5 = Author A-Z
   6 = Author Z-A
    */
-  // int getSelection() {
-  //   if(!isToggled) {
-  //     switch (selectedMenu) {
-  //       case Options.date:
-  //         return 1;
-  //       case Options.title:
-  //         return 3;
-  //       case Options.author:
-  //         return 5;
-  //       default:
-  //         return 1;
-  //     }
-  //   } else {
-  //     switch (selectedMenu) {
-  //       case Options.date:
-  //         return 2;
-  //       case Options.title:
-  //         return 4;
-  //       case Options.author:
-  //         return 6;
-  //       default:
-  //         return 1;
-  //     }
-  //   }
-  // }
-  //
+  int getSelection() {
+    if(!isToggled) {
+      switch (selectedMenu) {
+        case Options.date:
+          return 1;
+        case Options.title:
+          return 3;
+        case Options.author:
+          return 5;
+        default:
+          return 1;
+      }
+    } else {
+      switch (selectedMenu) {
+        case Options.date:
+          return 2;
+        case Options.title:
+          return 4;
+        case Options.author:
+          return 6;
+        default:
+          return 1;
+      }
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -80,12 +80,21 @@ class _SortButtonState extends State<SortButton> {
       },
       menuChildren: List<MenuItemButton>.generate(
         3,
-            (int index) =>
-            MenuItemButton(
-              onPressed: () =>
-                  setState(() => selectedMenu = Options.values[index]),
-              child: Text(options[index]),
-            ),
+            (int index) => MenuItemButton(
+          onPressed: () {
+            setState(() {
+              if (selectedMenu == Options.values[index]) {
+                isToggled = !isToggled;
+              } else {
+                selectedMenu = Options.values[index];
+                isToggled = false;
+              }
+              print(getSelection());
+            });
+            sortData(); // Call sorting logic when selection changes
+          },
+          child: Text(options[index]),
+        ),
       ),
     );
   }
@@ -95,24 +104,24 @@ class _SortButtonState extends State<SortButton> {
 
 
 
-// void main() => runApp(const DropdownMenuApp());
-//
-// class DropdownMenuApp extends StatelessWidget {
-//   const DropdownMenuApp({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       theme: ThemeData(useMaterial3: true),
-//       home: Scaffold(
-//         appBar: AppBar(title: const Text('DropdownMenu Sample')),
-//         body: const Center(
-//           child: SortButton(),
-//         ),
-//       ),
-//     );
-//   }
-// }
+void main() => runApp(const DropdownMenuApp());
+
+class DropdownMenuApp extends StatelessWidget {
+  const DropdownMenuApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(useMaterial3: true),
+      home: Scaffold(
+        appBar: AppBar(title: const Text('DropdownMenu Sample')),
+        body: const Center(
+          child: SortButton(),
+        ),
+      ),
+    );
+  }
+}
 
 
 
