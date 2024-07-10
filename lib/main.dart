@@ -23,7 +23,15 @@ class LedgableApp extends StatelessWidget {
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Books Display'),
+          centerTitle: true,
+          title: const SizedBox(
+            width: 50, // Adjust width as needed
+            height: 50, // Adjust height as needed
+            child: Image(
+              image: AssetImage('assets/Ledgable_icon.png'),
+              fit: BoxFit.contain,
+            ),
+          ),
         ),
         body: Center(
           child: Stack(
