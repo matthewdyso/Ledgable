@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'book.dart';
 
 
 List<String> options = ['Date', 'Title', 'Author'];
+enum Options { Date, Title, Author }
 
 
 class SortButton extends StatefulWidget {
-
   const SortButton({super.key});
 
   @override
@@ -14,9 +13,6 @@ class SortButton extends StatefulWidget {
 }
 
 class _SortButtonState extends State<SortButton> {
-  List<Book> _sort = [];
-  String? selectedSortOption = "Title"; // Initialize with a default value
-  String dropdownValue = options.first;
 
   // Implement your sorting logic here
   void sortData() {
@@ -30,19 +26,35 @@ class _SortButtonState extends State<SortButton> {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownMenu<String>(
-      initialSelection: options.first,
-      onSelected: (String? value) {
-        // This is called when the user selects an item.
-        setState(() {
-          dropdownValue = value!;
-        });
+    Options? selectedMenu;
+
+    return MenuAnchor(
+      builder:
+          (BuildContext context, MenuController controller, Widget? child) {
+        return IconButton(
+          onPressed: () {
+            if (controller.isOpen) {
+              controller.close();
+            } else {
+              controller.open();
+            }
+          },
+          icon: const Icon(Icons.sort),
+          tooltip: 'Show menu',
+        );
       },
-      dropdownMenuEntries: options.map<DropdownMenuEntry<String>>((String value) {
-        return DropdownMenuEntry<String>(value: value, label: value);
-      }).toList(),
+      menuChildren: List<MenuItemButton>.generate(
+            3,
+            (int index) =>
+            MenuItemButton(
+              onPressed: () =>
+                  setState(() => selectedMenu = Options.values[index]),
+              child: Text(options[index]),
+            ),
+      ),
     );
   }
+
 }
 
 /*
@@ -70,4 +82,5 @@ class DropdownMenuApp extends StatelessWidget {
 }
 
  */
+
 

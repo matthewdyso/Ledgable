@@ -17,6 +17,7 @@ class LedgableApp extends StatelessWidget {
       print(book.summary);
     }
 
+
     return MaterialApp(
       title: 'Ledgable',
       theme: ThemeData(
@@ -26,7 +27,7 @@ class LedgableApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Books Display'),
           centerTitle: true,
-          actions: <Widget>[SortButton()],
+          leading: SortButton(),
         ),
         body: Center(
           child: Stack(
