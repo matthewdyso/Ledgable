@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'shelf.dart';
 
 
 List<String> options = ['Date', 'Title', 'Author'];
@@ -7,6 +9,8 @@ enum Options {date, title, author}
 
 class SortButton extends StatefulWidget {
   const SortButton({super.key});
+
+  final Shelf shelf = Shelf();
 
   @override
   _SortButtonState createState() => _SortButtonState();
@@ -23,6 +27,14 @@ class _SortButtonState extends State<SortButton> {
       // For example, if selectedSortOption is "Title", sort by title
       // You can use List.sort() method or any other sorting algorithm
       // Update _sort list accordingly
+
+      if (getSelection() == 2) {
+        widget.shelf.books = widget.shelf.books.reversed.toList();
+      } else {
+        widget.shelf.books.sort( (a,b) => sortBooks(a, b, getSelection()) );
+      }
+
+
     });
   }
 
