@@ -17,17 +17,18 @@ class _LedgableAppState extends State<LedgableApp> {
   void initState() {
     super.initState();
 
-    double width = WidgetsBinding.instance.window.physicalSize.width;    // Gives the width
-    double height = WidgetsBinding.instance.window.physicalSize.height;  // Gives the height
+    //retrieve width and height of screen in context
 
-    print('width: $width, height: $height');
+    // double width = 400;
+    // double height = 600;
+
     Book harryPotter = Book('Harry Potter and the Order of the Phoenix', 'J. K. Rowling', 'He said calmly');
     Book got = Book('Game of Thrones', 'George RR Martin', 'Bilbo Baggins');
     Book idk = Book('IDK anymore', 'J. K. Rowling', 'IDK man this aint a book');
     Book random = Book('Random Book', 'J. K. Rowling', 'probability of me being a book = 0');
 
     // Create a Shelf instance to hold books
-    shelf = Shelf(width, height);
+    shelf = Shelf(0, 0);
     shelf.addBook(harryPotter);
     shelf.addBook(got);
     shelf.addBook(idk);
@@ -46,6 +47,11 @@ class _LedgableAppState extends State<LedgableApp> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;    // Gives the width
+    double height = MediaQuery.of(context).size.height;  // Gives the height
+
+    shelf.setSize(width, height);
+
     return MaterialApp(
       title: 'Ledgable',
       theme: ThemeData(

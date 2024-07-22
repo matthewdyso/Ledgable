@@ -12,6 +12,11 @@ class Shelf {
 
   Shelf(this.width, this.height);
 
+  void setSize(double w, double h) {
+    width = w;
+    height = h;
+  }
+
   void addBook(Book book) {
     books.add(book);
   }
@@ -65,35 +70,35 @@ class _ShelfUIState extends State<ShelfUI> {
       shelf.addBook(newBook);
     });
   }
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Expanded(
-  //     child: Stack(
-  //       children: [
-  //         ...shelf.getBooks(),
-  //       ],
-  //     ),
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ElevatedButton(
-          onPressed: addBook,
-          child: const Text('Add Book'),
-        ),
-        Expanded(
-          child: Stack(
-            children: [
-              ...shelf.getBooks(),
-            ],
-          ),
-        ),
-      ],
+    return Expanded(
+      child: Stack(
+        children: [
+          ...shelf.getBooks(),
+        ],
+      ),
     );
   }
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Column(
+  //     children: [
+  //       ElevatedButton(
+  //         onPressed: addBook,
+  //         child: const Text('Add Book'),
+  //       ),
+  //       Expanded(
+  //         child: Stack(
+  //           children: [
+  //             ...shelf.getBooks(),
+  //           ],
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 }
 
 void main() => runApp(const ShelfApp());
@@ -107,6 +112,10 @@ class ShelfApp extends StatelessWidget {
       builder: (context, constraints) {
         double width = constraints.maxWidth;
         double height = constraints.maxHeight;
+
+        // //
+        // print(width);
+        // print(height);
 
         Book harryPotter = Book('Harry Potter and the Order of the Phoenix', 'J. K. Rowling', 'He said calmly');
         Book got = Book('Game of Thrones', 'George RR Martin', 'Bilbo Baggins');
