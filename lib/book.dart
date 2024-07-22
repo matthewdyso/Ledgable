@@ -54,7 +54,6 @@ class _BookUIState extends State<BookUI> {
   late double x;
   late double y;
 
-  //initialize with starting values
   @override
   void initState() {
     super.initState();
@@ -64,36 +63,74 @@ class _BookUIState extends State<BookUI> {
   }
 
   void handleBookPress() {
-    print(bookData.summary);
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: Container(
+            width: 300,
+            height: 300,
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextFormField(
+                  initialValue: bookData.title,
+                  decoration: const InputDecoration(
+                    labelText: 'Title',
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      bookData.setTitle(value);
+                    });
+                  },
+                ),
+                TextFormField(
+                  initialValue: bookData.author,
+                  decoration: const InputDecoration(
+                    labelText: 'Author',
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      bookData.setAuthor(value);
+                    });
+                  },
+                ),
+                TextFormField(
+                  initialValue: bookData.summary,
+                  decoration: const InputDecoration(
+                    labelText: 'Summary',
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      bookData.setSummary(value);
+                    });
+                  },
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {});
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Save'),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
-  //changes book information shown
-  void updateBookData(Book newBookData) {
-    setState(() {
-      bookData = newBookData;
-    });
-  }
-
-  //updates position of book
-  void updatePosition(double newX, double newY) {
-    setState(() {
-      x = newX;
-      y = newY;
-    });
-  }
-
-  // Builds a widget that is 150x50 (H * W)
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        //sets position
         Positioned(
           top: y,
           left: x,
           child: GestureDetector(
             onTap: handleBookPress,
-            //sets container to contain book text
             child: Container(
               width: 50,
               height: 150,
@@ -109,7 +146,6 @@ class _BookUIState extends State<BookUI> {
                   ),
                 ],
               ),
-              //Creates rotated text box, centered in container
               child: Center(
                 child: RotatedBox(
                   quarterTurns: -3,
