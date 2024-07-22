@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'shelf.dart';
 
@@ -8,9 +7,9 @@ enum Options {date, title, author}
 
 
 class SortButton extends StatefulWidget {
-  const SortButton({super.key});
-
   final Shelf shelf = Shelf();
+
+  SortButton({super.key, required Shelf shelf});
 
   @override
   _SortButtonState createState() => _SortButtonState();
@@ -27,13 +26,7 @@ class _SortButtonState extends State<SortButton> {
       // For example, if selectedSortOption is "Title", sort by title
       // You can use List.sort() method or any other sorting algorithm
       // Update _sort list accordingly
-
-      if (getSelection() == 2) {
-        widget.shelf.books = widget.shelf.books.reversed.toList();
-      } else {
-        widget.shelf.books.sort( (a,b) => sortBooks(a, b, getSelection()) );
-      }
-
+      widget.shelf.books.sort( (a,b) => sortBooks(a, b, getSelection()) );
 
     });
   }
@@ -101,9 +94,11 @@ class _SortButtonState extends State<SortButton> {
                 selectedMenu = Options.values[index];
                 isToggled = false;
               }
-              print(getSelection());
+              //print(getSelection());
             });
             sortData(); // Call sorting logic when selection changes
+            //call the function that will resort the ui
+
           },
           child: Text(options[index]),
         ),
@@ -123,12 +118,13 @@ class DropdownMenuApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Shelf shelf = Shelf();
     return MaterialApp(
       theme: ThemeData(useMaterial3: true),
       home: Scaffold(
         appBar: AppBar(title: const Text('DropdownMenu Sample')),
-        body: const Center(
-          child: SortButton(),
+        body: Center(
+          child: SortButton(shelf: shelf,),
         ),
       ),
     );
