@@ -22,10 +22,11 @@ class _LedgableAppState extends State<LedgableApp> {
     // double width = 400;
     // double height = 600;
 
-    Book harryPotter = Book('Harry Potter and the Order of the Phoenix', 'J. K. Rowling', 'He said calmly');
-    Book got = Book('Game of Thrones', 'George RR Martin', 'Bilbo Baggins');
-    Book idk = Book('IDK anymore', 'J. K. Rowling', 'IDK man this aint a book');
-    Book random = Book('Random Book', 'J. K. Rowling', 'probability of me being a book = 0');
+    Book harryPotter = Book('Harry Potter and the Order of the Phoenix', 'J. K. Rowling', 'He said calmly', DateTime.now());
+    Book got = Book('Game of Thrones', 'George RR Martin', 'Bilbo Baggins', DateTime.now());
+    Book idk = Book('IDK anymore', 'J. K. Rowling', 'IDK man this aint a book', DateTime.now());
+    Book random = Book('Random Book', 'J. K. Rowling', 'probability of me being a book = 0', DateTime.now());
+
 
     // Create a Shelf instance to hold books
     shelf = Shelf(0, 0);
@@ -39,7 +40,7 @@ class _LedgableAppState extends State<LedgableApp> {
     // This is where you define what happens when the Add Book button is pressed
     // For example, you can add a new book with default values
     setState(() {
-      Book newBook = Book('New Book', 'New Author', 'New Summary');
+      Book newBook = Book('New Book', 'New Author', 'New Summary', DateTime.now());
       shelf.addBook(newBook);
       print('Book added: ${newBook.title}');
     });
