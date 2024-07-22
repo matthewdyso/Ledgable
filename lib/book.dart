@@ -8,9 +8,10 @@ class Book {
   String title;
   String author;
   String summary;
+  DateTime date;
 
   // Constructor accepts 3 arguments
-  Book(this.title, this.author, this.summary);
+  Book(this.title, this.author, this.summary, this.date);
 
   // Setter methods for updating properties
 
@@ -27,6 +28,11 @@ class Book {
   void setAuthor(String newAuthor) {
     author = newAuthor;
   }
+
+  void setDate(DateTime newDate) {
+    date = newDate;
+  }
+
 }
 
 /* Creates a stateful widget for creating the visual
