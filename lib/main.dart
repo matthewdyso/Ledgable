@@ -69,7 +69,7 @@ class _LedgableAppState extends State<LedgableApp> {
               fit: BoxFit.contain,
             ),
           ),
-          leading: const SortButton(),
+          leading: SortButton(shelf),
           actions: [
             IconButton(
               icon: const Icon(Icons.add),
