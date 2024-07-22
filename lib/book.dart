@@ -38,9 +38,8 @@ class BookUI extends StatefulWidget {
   final Book bookData;
   final double initialX;
   final double initialY;
-  final VoidCallback onPress;
 
-  const BookUI(this.bookData, this.initialX, this.initialY, {required this.onPress, super.key});
+  const BookUI(this.bookData, this.initialX, this.initialY);
 
   // Updating state changes the data of the widget
   @override
@@ -62,6 +61,10 @@ class _BookUIState extends State<BookUI> {
     bookData = widget.bookData;
     x = widget.initialX;
     y = widget.initialY;
+  }
+
+  void handleBookPress() {
+    print(bookData.summary);
   }
 
   //changes book information shown
@@ -89,7 +92,7 @@ class _BookUIState extends State<BookUI> {
           top: y,
           left: x,
           child: GestureDetector(
-            onTap: widget.onPress,
+            onTap: handleBookPress,
             //sets container to contain book text
             child: Container(
               width: 50,
