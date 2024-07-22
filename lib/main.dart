@@ -1,22 +1,51 @@
 import 'package:flutter/material.dart';
 import 'book.dart';
 import 'sortButton.dart';
+import 'shelf.dart';
 
-//Stateless widget does not change, basically the background of the app
-class LedgableApp extends StatelessWidget {
+class LedgableApp extends StatefulWidget {
   const LedgableApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  _LedgableAppState createState() => _LedgableAppState();
+}
+
+class _LedgableAppState extends State<LedgableApp> {
+  late Shelf shelf;
+
+  @override
+  void initState() {
+    super.initState();
+
+    double width = WidgetsBinding.instance.window.physicalSize.width;    // Gives the width
+    double height = WidgetsBinding.instance.window.physicalSize.height;  // Gives the height
+
+    print('width: $width, height: $height');
     Book harryPotter = Book('Harry Potter and the Order of the Phoenix', 'J. K. Rowling', 'He said calmly');
     Book got = Book('Game of Thrones', 'George RR Martin', 'Bilbo Baggins');
     Book idk = Book('IDK anymore', 'J. K. Rowling', 'IDK man this aint a book');
     Book random = Book('Random Book', 'J. K. Rowling', 'probability of me being a book = 0');
 
-    void handleBookPress(Book book){
-      print(book.summary);
-    }
+    // Create a Shelf instance to hold books
+    shelf = Shelf(width, height);
+    shelf.addBook(harryPotter);
+    shelf.addBook(got);
+    shelf.addBook(idk);
+    shelf.addBook(random);
+  }
 
+  void handleAddBook() {
+    // This is where you define what happens when the Add Book button is pressed
+    // For example, you can add a new book with default values
+    setState(() {
+      Book newBook = Book('New Book', 'New Author', 'New Summary');
+      shelf.addBook(newBook);
+      print('Book added: ${newBook.title}');
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Ledgable',
       theme: ThemeData(
@@ -33,20 +62,17 @@ class LedgableApp extends StatelessWidget {
               fit: BoxFit.contain,
             ),
           ),
-          leading: SortButton(),
+          leading: const SortButton(),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: handleAddBook,
+              tooltip: 'Add Book',
+            ),
+          ],
         ),
         body: Center(
-          child: Stack(
-            children: [
-              // x increments by values of 60
-              BookUI(harryPotter, 5, 100, onPress: () => handleBookPress(harryPotter)),
-              BookUI(got, 65, 100, onPress: () => handleBookPress(got)),
-              BookUI(idk, 125, 100, onPress: () => handleBookPress(idk)),
-              BookUI(random, 185, 100, onPress: () => handleBookPress(random)),
-              BookUI(harryPotter, 245, 100, onPress: () => handleBookPress(harryPotter)),
-              BookUI(harryPotter, 305, 100, onPress: () => handleBookPress(harryPotter)),
-            ],
-          ),
+          child: ShelfUI(shelf),
         ),
       ),
     );
