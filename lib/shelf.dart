@@ -153,9 +153,9 @@ class ShelfApp extends StatelessWidget {
 int sortBooks(final Book a, final Book b, int selection){
   switch(selection) {
     case 1: // Newest to oldest
-      return b.date.compareTo(a.date); // Compare dates
-    case 2: // Oldest to newest
       return a.date.compareTo(b.date); // Compare dates
+    case 2: // Oldest to newest
+      return b.date.compareTo(a.date); // Compare dates
     case 3: // Title A-Z
       return a.title.compareTo(b.title);
     case 4: // Title Z-A

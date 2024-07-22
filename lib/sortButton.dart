@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ledgable/shelf.dart';
 
 
 List<String> options = ['Date', 'Title', 'Author'];
@@ -6,13 +7,15 @@ enum Options {date, title, author}
 
 
 class SortButton extends StatefulWidget {
-  const SortButton({super.key});
+  late Shelf shelf;
+
+  SortButton(this.shelf);
 
   @override
-  _SortButtonState createState() => _SortButtonState();
+  SortButtonState createState() => SortButtonState();
 }
 
-class _SortButtonState extends State<SortButton> {
+class SortButtonState extends State<SortButton> {
   Options? selectedMenu;
   bool isToggled = false;
 
@@ -23,6 +26,7 @@ class _SortButtonState extends State<SortButton> {
       // For example, if selectedSortOption is "Title", sort by title
       // You can use List.sort() method or any other sorting algorithm
       // Update _sort list accordingly
+      widget.shelf.books.sort( (a,b) => sortBooks(a, b, getSelection()) );
     });
   }
 
@@ -87,11 +91,14 @@ class _SortButtonState extends State<SortButton> {
                 isToggled = !isToggled;
               } else {
                 selectedMenu = Options.values[index];
+                sortData(); // Call sorting logic when selection changes
                 isToggled = false;
               }
-              print(getSelection());
+              //print(getSelection());
             });
-            sortData(); // Call sorting logic when selection changes
+
+            //call the function that will resort the ui
+
           },
           child: Text(options[index]),
         ),
@@ -101,9 +108,6 @@ class _SortButtonState extends State<SortButton> {
 }
 
 
-
-
-
 void main() => runApp(const DropdownMenuApp());
 
 class DropdownMenuApp extends StatelessWidget {
@@ -111,12 +115,13 @@ class DropdownMenuApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Shelf shelf = Shelf(0, 0);
     return MaterialApp(
       theme: ThemeData(useMaterial3: true),
       home: Scaffold(
         appBar: AppBar(title: const Text('DropdownMenu Sample')),
-        body: const Center(
-          child: SortButton(),
+        body: Center(
+          child: SortButton(shelf),
         ),
       ),
     );
