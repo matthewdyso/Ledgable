@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'book.dart';
+import 'package:ledgable/book.dart';
 
 class Shelf {
   List<Book> books = [];
@@ -66,7 +66,7 @@ class _ShelfUIState extends State<ShelfUI> {
 
   void addBook() {
     setState(() {
-      Book newBook = Book('New Book', 'New Author', 'New Summary');
+      Book newBook = Book('New Book', 'New Author', 'New Summary', DateTime.now());
       shelf.addBook(newBook);
     });
   }
@@ -117,10 +117,10 @@ class ShelfApp extends StatelessWidget {
         // print(width);
         // print(height);
 
-        Book harryPotter = Book('Harry Potter and the Order of the Phoenix', 'J. K. Rowling', 'He said calmly');
-        Book got = Book('Game of Thrones', 'George RR Martin', 'Bilbo Baggins');
-        Book idk = Book('IDK anymore', 'J. K. Rowling', 'IDK man this aint a book');
-        Book random = Book('Random Book', 'J. K. Rowling', 'probability of me being a book = 0');
+        Book harryPotter = Book('Harry Potter and the Order of the Phoenix', 'J. K. Rowling', 'He said calmly', DateTime.now());
+        Book got = Book('Game of Thrones', 'George RR Martin', 'Bilbo Baggins', DateTime.now());
+        Book idk = Book('IDK anymore', 'J. K. Rowling', 'IDK man this aint a book', DateTime.now());
+        Book random = Book('Random Book', 'J. K. Rowling', 'probability of me being a book = 0', DateTime.now());
 
         Shelf shelf = Shelf(width, height);
         shelf.addBook(harryPotter);
@@ -139,5 +139,32 @@ class ShelfApp extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+/*
+  1 = Newest to oldest
+  2 = Oldest to newest
+  3 = Title A-Z
+  4 = Title Z-A
+  5 = Author A-Z
+  6 = Author Z-A
+   */
+int sortBooks(final Book a, final Book b, int selection){
+  switch(selection) {
+    case 1: // Newest to oldest
+      return b.date.compareTo(a.date); // Compare dates
+    case 2: // Oldest to newest
+      return a.date.compareTo(b.date); // Compare dates
+    case 3: // Title A-Z
+      return a.title.compareTo(b.title);
+    case 4: // Title Z-A
+      return b.title.compareTo(a.title);
+    case 5: // Author A-Z
+      return a.author.compareTo(b.author);
+    case 6: // Author Z-A
+      return b.author.compareTo(a.author);
+    default:
+      return 0;
   }
 }
