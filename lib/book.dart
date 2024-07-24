@@ -45,6 +45,22 @@ class BookUI extends StatefulWidget {
 
   const BookUI(this.bookData, {super.key});
 
+  //Getters to access bookdata
+  String getTitle(){
+    return bookData.title;
+  }
+  String getSummary(){
+    return bookData.summary;
+  }
+
+  String getAuthor(){
+    return bookData.author;
+  }
+
+  DateTime getDate(){
+    return bookData.date;
+  }
+
   // Updating state changes the data of the widget
   @override
   State<BookUI> createState() => _BookUIState();
