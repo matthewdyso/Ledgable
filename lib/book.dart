@@ -43,7 +43,7 @@ class Book {
 class BookUI extends StatefulWidget {
   final Book bookData;
 
-  const BookUI(this.bookData);
+  const BookUI(this.bookData, {super.key});
 
   // Updating state changes the data of the widget
   @override

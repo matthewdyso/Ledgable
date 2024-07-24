@@ -31,13 +31,13 @@ class Shelf {
 class ShelfUI extends StatefulWidget {
   final Shelf shelf;
 
-  const ShelfUI(this.shelf);
+  const ShelfUI(this.shelf, {super.key});
 
   @override
-  _ShelfUIState createState() => _ShelfUIState();
+  ShelfUIState createState() => ShelfUIState();
 }
 
-class _ShelfUIState extends State<ShelfUI> {
+class ShelfUIState extends State<ShelfUI> {
   late Shelf shelf;
 
   @override

@@ -9,7 +9,7 @@ enum Options {date, title, author}
 class SortButton extends StatefulWidget {
   late Shelf shelf;
 
-  SortButton(this.shelf);
+  SortButton(this.shelf, {super.key});
 
   @override
   SortButtonState createState() => SortButtonState();

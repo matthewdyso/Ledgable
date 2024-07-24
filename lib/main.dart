@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'book.dart';
-import 'sortButton.dart';
+import 'sort_button.dart';
 import 'shelf.dart';
 
 class LedgableApp extends StatefulWidget {
   const LedgableApp({super.key});
 
   @override
-  _LedgableAppState createState() => _LedgableAppState();
+  LedgableAppState createState() => LedgableAppState();
 }
 
-class _LedgableAppState extends State<LedgableApp> {
+class LedgableAppState extends State<LedgableApp> {
   late Shelf shelf;
 
   @override
@@ -69,7 +69,7 @@ class _LedgableAppState extends State<LedgableApp> {
               fit: BoxFit.contain,
             ),
           ),
-          leading: BackButton(
+          leading: const BackButton(
             //implement when we add shelves
           ),
           actions: [
