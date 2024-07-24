@@ -7,8 +7,6 @@ class Shelf {
   double initY = 30;
   double width;
   double height;
-  double xIncr = 60;
-  double yIncr = 160;
 
   Shelf(this.width, this.height);
 
@@ -22,27 +20,11 @@ class Shelf {
   }
 
   List<Widget> getBooks() {
-    bookUIs.clear(); // Clear existing bookUIs before rebuilding
-    double y = initY;
-    int numBooksPerRow = (width ~/ xIncr);
-    int padding = (width - (numBooksPerRow * xIncr)) ~/ 2;
-    double x = padding.toDouble();
-
-    int booksPerRow = 0;
-    for (int i = 0; i < books.length; i++) {
-      BookUI temp = BookUI(books[i], x, y);
-      bookUIs.add(temp);
-
-      x += xIncr;
-      booksPerRow++;
-      if (booksPerRow == numBooksPerRow) {
-        y += yIncr;
-        x = padding.toDouble();
-        booksPerRow = 0;
+      bookUIs.clear(); // Clear existing bookUIs before rebuilding
+      for (int i = 0; i < books.length; i++) {
+        bookUIs.add(BookUI(books[i]));
       }
-
-    }
-    return bookUIs;
+      return bookUIs;
   }
 }
 
@@ -70,35 +52,20 @@ class _ShelfUIState extends State<ShelfUI> {
       shelf.addBook(newBook);
     });
   }
+
+
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Stack(
-        children: [
-          ...shelf.getBooks(),
-        ],
-      ),
+    return GridView.count(
+      padding: const EdgeInsets.all(20),
+      crossAxisCount: 4,
+      childAspectRatio: 0.7,
+      crossAxisSpacing: 20.0,
+      mainAxisSpacing: 40,
+      children: [...shelf.getBooks()],
     );
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Column(
-  //     children: [
-  //       ElevatedButton(
-  //         onPressed: addBook,
-  //         child: const Text('Add Book'),
-  //       ),
-  //       Expanded(
-  //         child: Stack(
-  //           children: [
-  //             ...shelf.getBooks(),
-  //           ],
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
 }
 
 void main() => runApp(const ShelfApp());
