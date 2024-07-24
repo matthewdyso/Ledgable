@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ledgable/shelf.dart';
-import 'package:ledgable/book.dart';
+import 'package:Ledgable/shelf.dart';
+import 'package:Ledgable/book.dart';
 
 void main() {
   group('Shelf', () {
