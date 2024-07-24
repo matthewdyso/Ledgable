@@ -69,8 +69,11 @@ class _LedgableAppState extends State<LedgableApp> {
               fit: BoxFit.contain,
             ),
           ),
-          leading: SortButton(shelf),
+          leading: BackButton(
+            //implement when we add shelves
+          ),
           actions: [
+            SortButton(shelf),
             IconButton(
               icon: const Icon(Icons.add),
               onPressed: handleAddBook,
