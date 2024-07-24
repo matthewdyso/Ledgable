@@ -42,10 +42,8 @@ class Book {
 * updating the widget's appearance and data.*/
 class BookUI extends StatefulWidget {
   final Book bookData;
-  final double initialX;
-  final double initialY;
 
-  const BookUI(this.bookData, this.initialX, this.initialY);
+  const BookUI(this.bookData);
 
   // Updating state changes the data of the widget
   @override
@@ -57,15 +55,11 @@ class BookUI extends StatefulWidget {
 * book and position.*/
 class _BookUIState extends State<BookUI> {
   late Book bookData;
-  late double x;
-  late double y;
 
   @override
   void initState() {
     super.initState();
     bookData = widget.bookData;
-    x = widget.initialX;
-    y = widget.initialY;
   }
 
   void handleBookPress() {
@@ -132,37 +126,31 @@ class _BookUIState extends State<BookUI> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Positioned(
-          top: y,
-          left: x,
-          child: GestureDetector(
-            onTap: handleBookPress,
-            child: Container(
-              width: 50,
-              height: 150,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 2,
-                    blurRadius: 5,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: Center(
-                child: RotatedBox(
-                  quarterTurns: -3,
-                  child: Text(
-                    bookData.title,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+        GestureDetector(
+          onTap: handleBookPress,
+          child: Container(
+            width: 200,
+            height: 300,
+            decoration: BoxDecoration(
+              color: Colors.blueGrey, //Book Cover color
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
+            child: Align(
+              alignment: const Alignment(0.0, -0.7),
+              child: Text(
+                bookData.title,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.black,  //Text Color
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
