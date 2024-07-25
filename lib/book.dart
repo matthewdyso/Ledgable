@@ -9,7 +9,7 @@ class Book {
   String author;
   String summary;
   DateTime date;
-  Color color; // Added color property
+  Color color; // Added color
 
   // Constructor accepts 4 arguments
   Book(this.title, this.author, this.summary, this.date, {this.color = Colors.blueGrey});
@@ -225,7 +225,7 @@ class ColorPickerDialog extends StatelessWidget {
           onColorChanged: (color) {
             tempColor = color;
           },
-          showLabel: true,
+          labelTypes: [], // Use this to disable labels instead of showLabel
           pickerAreaHeightPercent: 0.8,
         ),
       ),
