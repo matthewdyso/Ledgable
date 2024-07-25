@@ -39,12 +39,15 @@ class LedgableAppState extends State<LedgableApp> {
   void handleAddBook() {
     // This is where you define what happens when the Add Book button is pressed
     // For example, you can add a new book with default values
+
     setState(() {
       Book newBook = Book('New Book', 'New Author', 'New Summary', DateTime.now());
       shelf.addBook(newBook);
       print('Book added: ${newBook.title}');
     });
   }
+
+
 
   @override
   Widget build(BuildContext context) {

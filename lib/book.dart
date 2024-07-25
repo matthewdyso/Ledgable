@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 /* Book class stores the data for the book. Contains a
 * title, author, and summary of the book and can be
@@ -9,9 +9,10 @@ class Book {
   String author;
   String summary;
   DateTime date;
+  Color color; // Added color property
 
-  // Constructor accepts 3 arguments
-  Book(this.title, this.author, this.summary, this.date);
+  // Constructor accepts 4 arguments
+  Book(this.title, this.author, this.summary, this.date, {this.color = Colors.blueGrey});
 
   // Setter methods for updating properties
 
@@ -24,6 +25,7 @@ class Book {
   void setSummary(String newSummary) {
     summary = newSummary;
   }
+
   // Update author
   void setAuthor(String newAuthor) {
     author = newAuthor;
@@ -33,6 +35,9 @@ class Book {
     date = newDate;
   }
 
+  void setColor(Color newColor) {
+    color = newColor;
+  }
 }
 
 /* Creates a stateful widget for creating the visual
@@ -46,18 +51,19 @@ class BookUI extends StatefulWidget {
   const BookUI(this.bookData, {super.key});
 
   //Getters to access bookdata
-  String getTitle(){
+  String getTitle() {
     return bookData.title;
   }
-  String getSummary(){
+
+  String getSummary() {
     return bookData.summary;
   }
 
-  String getAuthor(){
+  String getAuthor() {
     return bookData.author;
   }
 
-  DateTime getDate(){
+  DateTime getDate() {
     return bookData.date;
   }
 
@@ -82,10 +88,11 @@ class _BookUIState extends State<BookUI> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        Color tempColor = bookData.color; // Temporary color variable
         return Dialog(
           child: Container(
             width: 300,
-            height: 300,
+            height: 400, // Increased height to accommodate color picker
             padding: const EdgeInsets.all(16.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -123,9 +130,33 @@ class _BookUIState extends State<BookUI> {
                     });
                   },
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('Color:'),
+                    ElevatedButton(
+                      onPressed: () async {
+                        Color? pickedColor = await showDialog<Color>(
+                          context: context,
+                          builder: (context) => ColorPickerDialog(
+                            initialColor: tempColor,
+                          ),
+                        );
+                        if (pickedColor != null) {
+                          setState(() {
+                            tempColor = pickedColor;
+                          });
+                        }
+                      },
+                      child: const Text('Pick Color'),
+                    ),
+                  ],
+                ),
                 ElevatedButton(
                   onPressed: () {
-                    setState(() {});
+                    setState(() {
+                      bookData.setColor(tempColor); // Update book color
+                    });
                     Navigator.of(context).pop();
                   },
                   child: const Text('Save'),
@@ -148,7 +179,7 @@ class _BookUIState extends State<BookUI> {
             width: 200,
             height: 300,
             decoration: BoxDecoration(
-              color: Colors.blueGrey, //Book Cover color
+              color: bookData.color, // Use book's color
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
                 BoxShadow(
@@ -165,12 +196,51 @@ class _BookUIState extends State<BookUI> {
                 bookData.title,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
-                  color: Colors.black,  //Text Color
+                  color: Colors.black, // Text Color
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ),
+        ),
+      ],
+    );
+  }
+}
+
+class ColorPickerDialog extends StatelessWidget {
+  final Color initialColor;
+
+  const ColorPickerDialog({required this.initialColor, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    Color tempColor = initialColor;
+
+    return AlertDialog(
+      title: const Text('Pick a color'),
+      content: SingleChildScrollView(
+        child: ColorPicker(
+          pickerColor: initialColor,
+          onColorChanged: (color) {
+            tempColor = color;
+          },
+          showLabel: true,
+          pickerAreaHeightPercent: 0.8,
+        ),
+      ),
+      actions: <Widget>[
+        TextButton(
+          child: const Text('Cancel'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        TextButton(
+          child: const Text('Select'),
+          onPressed: () {
+            Navigator.of(context).pop(tempColor);
+          },
         ),
       ],
     );
