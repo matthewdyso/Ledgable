@@ -225,7 +225,7 @@ class ColorPickerDialog extends StatelessWidget {
           onColorChanged: (color) {
             tempColor = color;
           },
-          showLabel: true,
+          labelTypes: [], // Use this to disable labels instead of showLabel
           pickerAreaHeightPercent: 0.8,
         ),
       ),
