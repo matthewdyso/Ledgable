@@ -63,7 +63,7 @@ class ShelfUIState extends State<ShelfUI> {
   List<BookUI> buildBookUI(){
     List<BookUI> bookUIs = [];
     for (int i = 0; i < shelf.getBooks().length; i++) {
-      bookUIs.add(BookUI(shelf.getBooks()[i], onDelete: deleteBook,));
+      bookUIs.add(BookUI(shelf.getBooks()[i], onDelete: deleteBook, key: UniqueKey(),));
     }
     return bookUIs;
   }
