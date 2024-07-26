@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
+
 /* Book class stores the data for the book. Contains a
 * title, author, and summary of the book and can be
 * set with multiple functions. Strings a public.*/
@@ -13,6 +14,10 @@ class Book {
 
   // Constructor accepts 4 arguments
   Book(this.title, this.author, this.summary, this.date, {this.color = Colors.blueGrey});
+
+  String getTitle(){
+    return title;
+  }
 
   // Setter methods for updating properties
 
@@ -47,12 +52,13 @@ class Book {
 * updating the widget's appearance and data.*/
 class BookUI extends StatefulWidget {
   final Book bookData;
+  final Function(Book) onDelete;
 
-  const BookUI(this.bookData, {super.key});
+  const BookUI(this.bookData, {super.key, required this.onDelete});
 
   //Getters to access bookdata
   String getTitle() {
-    return bookData.title;
+    return bookData.getTitle();
   }
 
   String getSummary() {
@@ -66,7 +72,6 @@ class BookUI extends StatefulWidget {
   DateTime getDate() {
     return bookData.date;
   }
-
   // Updating state changes the data of the widget
   @override
   State<BookUI> createState() => _BookUIState();
@@ -92,7 +97,7 @@ class _BookUIState extends State<BookUI> {
         return Dialog(
           child: Container(
             width: 300,
-            height: 400, // Increased height to accommodate color picker
+            height: 300, // Increased height to accommodate color picker
             padding: const EdgeInsets.all(16.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -134,7 +139,7 @@ class _BookUIState extends State<BookUI> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text('Color:'),
-                    ElevatedButton(
+                    OutlinedButton(
                       onPressed: () async {
                         Color? pickedColor = await showDialog<Color>(
                           context: context,
@@ -152,15 +157,33 @@ class _BookUIState extends State<BookUI> {
                     ),
                   ],
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      bookData.setColor(tempColor); // Update book color
-                    });
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Save'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    //Delete button
+                    OutlinedButton(
+                      onPressed: () {
+                        setState(() {
+                          widget.onDelete(bookData); // Use the callback
+                          Navigator.of(context).pop();
+                        });
+                      },
+                      child: const Text('Delete'),
+                    ),
+                    //Save Button
+                    OutlinedButton(
+                      onPressed: () {
+                        setState(() {
+                          bookData.setColor(tempColor); // Update book color
+                        });
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('Save'),
+                    ),
+
+                  ],
                 ),
+
               ],
             ),
           ),
