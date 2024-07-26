@@ -3,7 +3,6 @@ import 'package:Ledgable/book.dart';
 
 class Shelf {
   List<Book> books = [];
-  List<BookUI> bookUIs = [];
   double initY = 30;
   double width;
   double height;
@@ -19,18 +18,18 @@ class Shelf {
     books.add(book);
   }
 
-  List<Widget> getBooks() {
-      bookUIs.clear(); // Clear existing bookUIs before rebuilding
-      for (int i = 0; i < books.length; i++) {
-        bookUIs.add(BookUI(books[i]));
-      }
-      return bookUIs;
+  void deleteBook(Book book){
+    books.remove(book);
   }
+
+  List<Book> getBooks() {
+    return books;
+  }
+
 }
 
 class ShelfUI extends StatefulWidget {
   final Shelf shelf;
-
   const ShelfUI(this.shelf, {super.key});
 
   @override
@@ -50,9 +49,24 @@ class ShelfUIState extends State<ShelfUI> {
     setState(() {
       Book newBook = Book('New Book', 'New Author', 'New Summary', DateTime.now());
       shelf.addBook(newBook);
+      buildBookUI();
     });
   }
 
+  void deleteBook(Book book){
+    setState(() {
+      shelf.deleteBook(book);
+      buildBookUI();
+    });
+  }
+
+  List<BookUI> buildBookUI(){
+    List<BookUI> bookUIs = [];
+    for (int i = 0; i < shelf.getBooks().length; i++) {
+      bookUIs.add(BookUI(shelf.getBooks()[i], onDelete: deleteBook,));
+    }
+    return bookUIs;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +76,7 @@ class ShelfUIState extends State<ShelfUI> {
       childAspectRatio: 0.7,
       crossAxisSpacing: 20.0,
       mainAxisSpacing: 40,
-      children: [...shelf.getBooks()],
+      children: [...buildBookUI()],
     );
   }
 
@@ -79,10 +93,6 @@ class ShelfApp extends StatelessWidget {
       builder: (context, constraints) {
         double width = constraints.maxWidth;
         double height = constraints.maxHeight;
-
-        // //
-        // print(width);
-        // print(height);
 
         Book harryPotter = Book('Harry Potter and the Order of the Phoenix', 'J. K. Rowling', 'He said calmly', DateTime.now());
         Book got = Book('Game of Thrones', 'George RR Martin', 'Bilbo Baggins', DateTime.now());
@@ -116,13 +126,13 @@ class ShelfApp extends StatelessWidget {
   4 = Title Z-A
   5 = Author A-Z
   6 = Author Z-A
-   */
-int sortBooks(final Book a, final Book b, int selection){
-  switch(selection) {
+*/
+int sortBooks(final Book a, final Book b, int selection) {
+  switch (selection) {
     case 1: // Newest to oldest
-      return a.date.compareTo(b.date); // Compare dates
-    case 2: // Oldest to newest
       return b.date.compareTo(a.date); // Compare dates
+    case 2: // Oldest to newest
+      return a.date.compareTo(b.date); // Compare dates
     case 3: // Title A-Z
       return a.title.compareTo(b.title);
     case 4: // Title Z-A
