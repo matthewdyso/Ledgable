@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:Ledgable/shelf.dart';
 
 
-List<String> options = ['Date', 'Title', 'Author'];
-enum Options {date, title, author}
+List<String> options = ['Date (Oldest)', 'Date (Newest)', 'Title A-Z', 'Title Z-A', 'Author A-Z', 'Author Z-A'];
+enum Options {dateOld, dateNew, titleAZ, titleZA, authorAZ, authorZA}
 
 
 class SortButton extends StatefulWidget {
-  late Shelf shelf;
+  final Shelf shelf;
+  final VoidCallback onSort; // Callback function
 
-  SortButton(this.shelf, {super.key});
+  const SortButton({required this.shelf, required this.onSort, Key? key}) : super(key: key);
 
   @override
   SortButtonState createState() => SortButtonState();
@@ -19,6 +20,7 @@ class SortButtonState extends State<SortButton> {
   Options? selectedMenu;
   bool isToggled = false;
 
+
   // Implement your sorting logic here
   void sortData() {
     setState(() {
@@ -27,8 +29,17 @@ class SortButtonState extends State<SortButton> {
       // You can use List.sort() method or any other sorting algorithm
       // Update _sort list accordingly
       widget.shelf.books.sort( (a,b) => sortBooks(a, b, getSelection()) );
+      widget.shelf.getBooks();
+      widget.onSort();
+
     });
+
+    void updateUI() {
+      setState(() {});
+    }
+
   }
+
 
   /*
   1 = Newest to oldest
@@ -41,22 +52,22 @@ class SortButtonState extends State<SortButton> {
   int getSelection() {
     if(!isToggled) {
       switch (selectedMenu) {
-        case Options.date:
+        case Options.dateOld:
           return 1;
-        case Options.title:
+        case Options.titleAZ:
           return 3;
-        case Options.author:
+        case Options.authorAZ:
           return 5;
         default:
           return 1;
       }
     } else {
       switch (selectedMenu) {
-        case Options.date:
+        case Options.dateNew:
           return 2;
-        case Options.title:
+        case Options.titleZA:
           return 4;
-        case Options.author:
+        case Options.authorZA:
           return 6;
         default:
           return 1;
@@ -83,7 +94,7 @@ class SortButtonState extends State<SortButton> {
         );
       },
       menuChildren: List<MenuItemButton>.generate(
-        3,
+        6,
             (int index) => MenuItemButton(
           onPressed: () {
             setState(() {
@@ -113,6 +124,8 @@ void main() => runApp(const DropdownMenuApp());
 class DropdownMenuApp extends StatelessWidget {
   const DropdownMenuApp({super.key});
 
+  get updateUI => null;
+
   @override
   Widget build(BuildContext context) {
     Shelf shelf = Shelf(0, 0);
@@ -121,7 +134,7 @@ class DropdownMenuApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(title: const Text('DropdownMenu Sample')),
         body: Center(
-          child: SortButton(shelf),
+          child: SortButton(shelf: shelf, onSort: updateUI),
         ),
       ),
     );
