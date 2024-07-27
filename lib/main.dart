@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'book.dart';
-import 'sort_button.dart';
-import 'shelf.dart';
+import 'package:Ledgable/book.dart';
+import 'package:Ledgable/sort_button.dart';
+import 'package:Ledgable/shelf.dart';
+
+List<String> options = ['Date (Newest)', 'Date (Oldest)', 'Title A-Z', 'Title Z-A', 'Author A-Z', 'Author Z-A'];
 
 class LedgableApp extends StatefulWidget {
   const LedgableApp({super.key});
@@ -29,7 +31,7 @@ class LedgableAppState extends State<LedgableApp> {
 
 
     // Create a Shelf instance to hold books
-    shelf = Shelf(0, 0);
+    shelf = Shelf(width: 0, height: 0);
     shelf.addBook(harryPotter);
     shelf.addBook(got);
     shelf.addBook(idk);
@@ -47,6 +49,36 @@ class LedgableAppState extends State<LedgableApp> {
     });
   }
 
+  MenuAnchor sortButton() {
+    return MenuAnchor(
+      builder:
+          (BuildContext context, MenuController controller, Widget? child) {
+        return IconButton(
+          onPressed: () {
+            if (controller.isOpen) {
+              controller.close();
+            } else {
+              controller.open();
+            }
+          },
+          icon: const Icon(Icons.sort),
+          tooltip: 'Show menu',
+        );
+      },
+      menuChildren: List<MenuItemButton>.generate(
+        6,
+            (int index) => MenuItemButton(
+          onPressed: () {
+            setState(() {
+              shelf.sortClicked(index);
+              shelf = Shelf(width: shelf.width, height: shelf.height)..books = shelf.books;
+            });
+          },
+          child: Text(options[index]),
+        ),
+      ),
+    );
+  }
 
 
   @override
@@ -73,7 +105,8 @@ class LedgableAppState extends State<LedgableApp> {
             ),
           ),
           actions: [
-            SortButton(shelf),
+            //SortButton(shelf : shelf, onSort: () {  },),
+            sortButton(),
             IconButton(
               icon: const Icon(Icons.add),
               onPressed: handleAddBook,
