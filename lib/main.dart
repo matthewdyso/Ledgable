@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:Ledgable/book.dart';
-import 'package:Ledgable/sort_button.dart';
 import 'package:Ledgable/shelf.dart';
 
 List<String> options = ['Date (Newest)', 'Date (Oldest)', 'Title A-Z', 'Title Z-A', 'Author A-Z', 'Author Z-A'];
