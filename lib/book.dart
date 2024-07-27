@@ -52,9 +52,8 @@ class Book {
 class BookUI extends StatefulWidget {
   final Book bookData;
   final Function(Book) onDelete;
-  final VoidCallback onPress;
 
-  const BookUI(this.bookData, {super.key, required this.onDelete, required this.onPress});
+  const BookUI(this.bookData, {super.key, required this.onDelete});
 
   //Getters to access bookdata
   String getTitle() {
@@ -173,10 +172,9 @@ class _BookUIState extends State<BookUI> {
                     //Save Button
                     OutlinedButton(
                       onPressed: () {
-                        // setState(() {
-                        //   bookData.setColor(tempColor); // Update book color
-                        // });
-                        widget.onPress;
+                        setState(() {
+
+                        });
                         Navigator.of(context).pop();
                       },
                       child: const Text('Save'),
