@@ -128,7 +128,7 @@ class DropdownMenuApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Shelf shelf = Shelf(0, 0);
+    Shelf shelf = Shelf(width: 0, height: 0);
     return MaterialApp(
       theme: ThemeData(useMaterial3: true),
       home: Scaffold(
