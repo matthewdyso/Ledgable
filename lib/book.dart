@@ -18,7 +18,6 @@ class Book {
   String getTitle(){
     return title;
   }
-
   // Setter methods for updating properties
 
   //Update title
@@ -53,8 +52,9 @@ class Book {
 class BookUI extends StatefulWidget {
   final Book bookData;
   final Function(Book) onDelete;
+  final VoidCallback onPress;
 
-  const BookUI(this.bookData, {super.key, required this.onDelete});
+  const BookUI(this.bookData, {super.key, required this.onDelete, required this.onPress});
 
   //Getters to access bookdata
   String getTitle() {
@@ -149,7 +149,7 @@ class _BookUIState extends State<BookUI> {
                         );
                         if (pickedColor != null) {
                           setState(() {
-                            tempColor = pickedColor;
+                            bookData.setColor(pickedColor); // Update book color
                           });
                         }
                       },
@@ -165,17 +165,18 @@ class _BookUIState extends State<BookUI> {
                       onPressed: () {
                         setState(() {
                           widget.onDelete(bookData); // Use the callback
-                          Navigator.of(context).pop();
                         });
+                        Navigator.of(context).pop();
                       },
                       child: const Text('Delete'),
                     ),
                     //Save Button
                     OutlinedButton(
                       onPressed: () {
-                        setState(() {
-                          bookData.setColor(tempColor); // Update book color
-                        });
+                        // setState(() {
+                        //   bookData.setColor(tempColor); // Update book color
+                        // });
+                        widget.onPress;
                         Navigator.of(context).pop();
                       },
                       child: const Text('Save'),
