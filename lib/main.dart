@@ -23,7 +23,8 @@ class LedgableAppState extends State<LedgableApp> {
     // double width = 400;
     // double height = 600;
 
-    Book harryPotter = Book('Harry Potter and the Order of the Phoenix', 'J. K. Rowling', 'He said calmly', DateTime.now());
+    //maximum word limit is 57 characters
+    Book harryPotter = Book('Harry Potter and the Order of the Phoenix And the buss do', 'J. K. Rowling', 'He said calmly', DateTime.now());
     Book got = Book('Game of Thrones', 'George RR Martin', 'Bilbo Baggins', DateTime.now());
     Book idk = Book('IDK anymore', 'J. K. Rowling', 'IDK man this aint a book', DateTime.now());
     Book random = Book('Random Book', 'J. K. Rowling', 'probability of me being a book = 0', DateTime.now());
