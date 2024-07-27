@@ -60,10 +60,15 @@ class ShelfUIState extends State<ShelfUI> {
     });
   }
 
+  void editBook(){
+    setState(() {
+    });
+  }
+
   List<BookUI> buildBookUI(){
     List<BookUI> bookUIs = [];
     for (int i = 0; i < shelf.getBooks().length; i++) {
-      bookUIs.add(BookUI(shelf.getBooks()[i], onDelete: deleteBook, key: UniqueKey(),));
+      bookUIs.add(BookUI(shelf.getBooks()[i], onDelete: deleteBook, key: ValueKey<DateTime>(shelf.getBooks()[i].date)));
     }
     return bookUIs;
   }
