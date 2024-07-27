@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 
 /* Book class stores the data for the book. Contains a
@@ -81,6 +82,7 @@ class BookUI extends StatefulWidget {
 * book and position.*/
 class _BookUIState extends State<BookUI> {
   late Book bookData;
+  String? _titleError = null;
 
   @override
   void initState() {
@@ -96,19 +98,27 @@ class _BookUIState extends State<BookUI> {
         return Dialog(
           child: Container(
             width: 300,
-            height: 300, // Increased height to accommodate color picker
+            height: 320, // Increased height to accommodate color picker
             padding: const EdgeInsets.all(16.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextFormField(
                   initialValue: bookData.title,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Title',
+                    errorText: _titleError, // Display error text if any
                   ),
                   onChanged: (value) {
                     setState(() {
-                      bookData.setTitle(value);
+                      if (value == null || value.isEmpty) {
+                        _titleError = 'Title cannot be empty';
+                      } else if (value.length > 57) {
+                        _titleError = 'Title is too long, will be shortened on display';
+                      } else {
+                        _titleError = null;
+                        bookData.setTitle(value);
+                      }
                     });
                   },
                 ),
@@ -159,7 +169,7 @@ class _BookUIState extends State<BookUI> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    //Delete button
+                    // Delete button
                     OutlinedButton(
                       onPressed: () {
                         setState(() {
@@ -169,20 +179,13 @@ class _BookUIState extends State<BookUI> {
                       },
                       child: const Text('Delete'),
                     ),
-                    //Save Button
+                    // Save Button
                     OutlinedButton(
-                      onPressed: () {
-                        setState(() {
-
-                        });
-                        Navigator.of(context).pop();
-                      },
+                      onPressed: _titleError == 'Title cannot be empty' ? null : () { Navigator.of(context).pop(); },
                       child: const Text('Save'),
                     ),
-
                   ],
                 ),
-
               ],
             ),
           ),
@@ -190,6 +193,7 @@ class _BookUIState extends State<BookUI> {
       },
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -214,10 +218,13 @@ class _BookUIState extends State<BookUI> {
             ),
             child: Align(
               alignment: const Alignment(0.0, -0.7),
-              child: Text(
+              child: AutoSizeText(
+                minFontSize: 12,
+                maxLines: 5,
                 bookData.title,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: TextStyle(
+                  overflow: TextOverflow.ellipsis,
                   color: Colors.black, // Text Color
                   fontWeight: FontWeight.bold,
                 ),
