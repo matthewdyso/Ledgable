@@ -115,6 +115,7 @@ class _BookUIState extends State<BookUI> {
                         _titleError = 'Title cannot be empty';
                       } else if (value.length > 57) {
                         _titleError = 'Title is too long, will be shortened on display';
+                        bookData.setTitle(value);
                       } else {
                         _titleError = null;
                         bookData.setTitle(value);
