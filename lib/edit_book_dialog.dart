@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:Ledgable/book.dart';
+import 'package:Ledgable/color_picker_dialog.dart';
 
 
 // Dialog widget to edit book details
