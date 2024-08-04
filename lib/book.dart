@@ -13,34 +13,9 @@ class Book {
   DateTime date;
   Color color;
 
-  // Constructor to initialize book properties, accepts 4 arguments
   Book(this.title, this.author, this.summary, this.date, {this.color = Colors.blueGrey});
-
-  // Setter for title
-  void setTitle(String newTitle) {
-    title = newTitle;
-  }
-
-  // Setter for summary
-  void setSummary(String newSummary) {
-    summary = newSummary;
-  }
-
-  // Setter for author
-  void setAuthor(String newAuthor) {
-    author = newAuthor;
-  }
-
-  // Setter for date
-  void setDate(DateTime newDate) {
-    date = newDate;
-  }
-
-  // Setter for color
-  void setColor(Color newColor) {
-    color = newColor;
-  }
 }
+
 
 /* Creates a stateful widget for creating the visual
 * book. Accepts a book, and coordinates to place the book.
@@ -98,10 +73,10 @@ class _BookUIState extends State<BookUI> {
                         _titleError = 'Title cannot be empty';
                       } else if (value.length > 57) {
                         _titleError = 'Title is too long, will be shortened on display';
-                        bookData.setTitle(value);
+                        bookData.title = value;
                       } else {
                         _titleError = null;
-                        bookData.setTitle(value);
+                        bookData.title = value;
                       }
                     });
                   },
@@ -114,7 +89,7 @@ class _BookUIState extends State<BookUI> {
                   ),
                   onChanged: (value) {
                     setState(() {
-                      bookData.setAuthor(value);
+                      bookData.author = value;
                     });
                   },
                 ),
@@ -126,7 +101,7 @@ class _BookUIState extends State<BookUI> {
                   ),
                   onChanged: (value) {
                     setState(() {
-                      bookData.setSummary(value);
+                      bookData.summary = value;
                     });
                   },
                 ),
@@ -145,7 +120,7 @@ class _BookUIState extends State<BookUI> {
                         );
                         if (pickedColor != null) {
                           setState(() {
-                            bookData.setColor(pickedColor);
+                            bookData.color = pickedColor;
                           });
                         }
                       },

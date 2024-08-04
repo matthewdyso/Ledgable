@@ -19,11 +19,11 @@ void main() {
     test('Book setters should update properties correctly', () {
       final book = Book('Title', 'Author', 'Summary', DateTime(2023, 1, 1));
 
-      book.setTitle('New Title');
-      book.setAuthor('New Author');
-      book.setSummary('New Summary');
-      book.setDate(DateTime(2024, 1, 1));
-      book.setColor(Colors.blue);
+      book.title = 'New Title';
+      book.author = 'New Author';
+      book.summary = ('New Summary');
+      book.date = DateTime(2024, 1, 1);
+      book.color = Colors.blue;
 
       expect(book.title, 'New Title');
       expect(book.author, 'New Author');
