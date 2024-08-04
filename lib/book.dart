@@ -11,7 +11,7 @@ class Book {
   String author;
   String summary;
   DateTime date;
-  Color color; // Added color
+  Color color;
 
   // Constructor accepts 4 arguments
   Book(this.title, this.author, this.summary, this.date, {this.color = Colors.blueGrey});
@@ -19,27 +19,20 @@ class Book {
   String getTitle(){
     return title;
   }
-  // Setter methods for updating properties
 
-  //Update title
+  // setters
   void setTitle(String newTitle) {
     title = newTitle;
   }
-
-  // Update summary
   void setSummary(String newSummary) {
     summary = newSummary;
   }
-
-  // Update author
   void setAuthor(String newAuthor) {
     author = newAuthor;
   }
-
   void setDate(DateTime newDate) {
     date = newDate;
   }
-
   void setColor(Color newColor) {
     color = newColor;
   }
@@ -56,22 +49,20 @@ class BookUI extends StatefulWidget {
 
   const BookUI(this.bookData, {super.key, required this.onDelete});
 
-  //Getters to access bookdata
+  //Getters to access book data
   String getTitle() {
     return bookData.getTitle();
   }
-
   String getSummary() {
     return bookData.summary;
   }
-
   String getAuthor() {
     return bookData.author;
   }
-
   DateTime getDate() {
     return bookData.date;
   }
+
   // Updating state changes the data of the widget
   @override
   State<BookUI> createState() => _BookUIState();
@@ -90,15 +81,17 @@ class _BookUIState extends State<BookUI> {
     bookData = widget.bookData;
   }
 
+
+  /* when Book is pressed, dialogue is displayed to change Books properties*/
   void handleBookPress() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        Color tempColor = bookData.color; // Temporary color variable
+        Color tempColor = bookData.color;
         return Dialog(
           child: Container(
             width: 300,
-            height: 320, // Increased height to accommodate color picker
+            height: 320,
             padding: const EdgeInsets.all(16.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -107,7 +100,7 @@ class _BookUIState extends State<BookUI> {
                   initialValue: bookData.title,
                   decoration: InputDecoration(
                     labelText: 'Title',
-                    errorText: _titleError, // Display error text if any
+                    errorText: _titleError,
                   ),
                   onChanged: (value) {
                     setState(() {
@@ -206,7 +199,7 @@ class _BookUIState extends State<BookUI> {
             width: 200,
             height: 300,
             decoration: BoxDecoration(
-              color: bookData.color, // Use book's color
+              color: bookData.color,
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
                 BoxShadow(
@@ -238,6 +231,8 @@ class _BookUIState extends State<BookUI> {
   }
 }
 
+
+/* color picker is accessed via book press, sets the color of book*/
 class ColorPickerDialog extends StatelessWidget {
   final Color initialColor;
 
