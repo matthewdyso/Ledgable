@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream:lib/book.dart
 import 'package:flutter/material.dart';
 
 
@@ -34,6 +35,13 @@ class Book {
   }
 
 }
+=======
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/material.dart';
+import 'package:Ledgable/models/book.dart';
+
+import 'edit_book_dialog.dart';
+>>>>>>> Stashed changes:lib/widgets/book_ui.dart
 
 /* Creates a stateful widget for creating the visual
 * book. Accepts a book, and coordinates to place the book.
@@ -58,8 +66,11 @@ class BookUI extends StatefulWidget {
 * book and position.*/
 class _BookUIState extends State<BookUI> {
   late Book bookData;
+<<<<<<< Updated upstream:lib/book.dart
   late double x;
   late double y;
+=======
+>>>>>>> Stashed changes:lib/widgets/book_ui.dart
 
   //initialize with starting values
   @override
@@ -132,4 +143,8 @@ class _BookUIState extends State<BookUI> {
       ],
     );
   }
+<<<<<<< Updated upstream:lib/book.dart
 }
+=======
+}
+>>>>>>> Stashed changes:lib/widgets/book_ui.dart
