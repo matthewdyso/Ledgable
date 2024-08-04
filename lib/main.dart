@@ -3,8 +3,10 @@ import 'package:Ledgable/book.dart';
 import 'package:Ledgable/shelf.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
+// List of sorting options
 List<String> options = ['Date (Newest)', 'Date (Oldest)', 'Title A-Z', 'Title Z-A', 'Author A-Z', 'Author Z-A'];
 
+// Main application widget
 class LedgableApp extends StatefulWidget {
   const LedgableApp({super.key});
 
@@ -19,13 +21,13 @@ class LedgableAppState extends State<LedgableApp> {
   void initState() {
     super.initState();
 
-    //maximum word limit is 57 characters
+    // Create sample books, maximum word limit is 57 characters
     Book harryPotter = Book('Harry Potter and the Order of the Phoenix And the buss do', 'J. K. Rowling', 'He said calmly', DateTime.now());
     Book got = Book('Game of Thrones', 'George RR Martin', 'Bilbo Baggins', DateTime.now());
     Book idk = Book('IDK anymore', 'J. K. Rowling', 'IDK man this aint a book', DateTime.now());
     Book random = Book('Random Book', 'J. K. Rowling', 'probability of me being a book = 0', DateTime.now());
 
-    // Create a Shelf instance to hold books
+    // Initialize shelf and add sample books
     shelf = Shelf(width: 0, height: 0);
     shelf.addBook(harryPotter);
     shelf.addBook(got);
@@ -33,6 +35,7 @@ class LedgableAppState extends State<LedgableApp> {
     shelf.addBook(random);
   }
 
+  // Method to handle adding a new book
   void handleAddBook() {
     showDialog(
       context: context,
@@ -49,6 +52,7 @@ class LedgableAppState extends State<LedgableApp> {
     );
   }
 
+  // Method to create the sort button with menu options
   MenuAnchor sortButton() {
     return MenuAnchor(
       builder: (BuildContext context, MenuController controller, Widget? child) {
@@ -119,6 +123,7 @@ class LedgableAppState extends State<LedgableApp> {
   }
 }
 
+// Dialog widget to edit book details
 class EditBookDialog extends StatefulWidget {
   final Function(String, String, String) onSave;
 
@@ -140,18 +145,22 @@ class EditBookDialogState extends State<EditBookDialog> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          // Text field for title
           TextField(
             controller: _titleController,
             decoration: const InputDecoration(labelText: 'Title'),
           ),
+          // Text field for author
           TextField(
             controller: _authorController,
             decoration: const InputDecoration(labelText: 'Author'),
           ),
+          // Text field for summary
           TextField(
             controller: _summaryController,
             decoration: const InputDecoration(labelText: 'Summary'),
           ),
+          // Row for color picker
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -194,6 +203,7 @@ class EditBookDialogState extends State<EditBookDialog> {
   }
 }
 
+// Main function to run the app
 void main() {
   runApp(const MaterialApp(
     home: LedgableApp(),

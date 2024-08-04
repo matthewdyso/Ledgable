@@ -5,6 +5,7 @@ import 'package:Ledgable/shelf.dart';
 
 void main() {
   group('Shelf', () {
+    // Test to check if Shelf adds and deletes books correctly
     test('Shelf should add and delete books correctly', () {
       final shelf = Shelf();
       final book1 = Book('Title1', 'Author1', 'Summary1', DateTime(2023, 1, 1));
@@ -21,6 +22,7 @@ void main() {
       expect(shelf.getBooks().first, book2);
     });
 
+    // Test to check if Shelf sorts books correctly
     test('Shelf should sort books correctly', () {
       final shelf = Shelf();
       final book1 = Book('TitleA', 'AuthorA', 'SummaryA', DateTime(2023, 1, 1));
@@ -38,6 +40,7 @@ void main() {
   });
 
   group('ShelfUI', () {
+    // Test to check if ShelfUI displays books
     testWidgets('ShelfUI should display books', (WidgetTester tester) async {
       final shelf = Shelf();
       final book1 = Book('Title1', 'Author1', 'Summary1', DateTime(2023, 1, 1));
@@ -56,6 +59,7 @@ void main() {
       expect(find.text('Title2'), findsOneWidget);
     });
 
+    // Test to check if ShelfUI adds a book when add button is pressed
     testWidgets('ShelfUI should add a book when add button is pressed', (WidgetTester tester) async {
       final shelf = Shelf();
 

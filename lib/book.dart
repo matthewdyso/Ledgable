@@ -13,30 +13,30 @@ class Book {
   DateTime date;
   Color color;
 
-  // Constructor accepts 4 arguments
+  // Constructor to initialize book properties, accepts 4 arguments
   Book(this.title, this.author, this.summary, this.date, {this.color = Colors.blueGrey});
 
-  String getTitle() {
-    return title;
-  }
-
-  // setters
+  // Setter for title
   void setTitle(String newTitle) {
     title = newTitle;
   }
 
+  // Setter for summary
   void setSummary(String newSummary) {
     summary = newSummary;
   }
 
+  // Setter for author
   void setAuthor(String newAuthor) {
     author = newAuthor;
   }
 
+  // Setter for date
   void setDate(DateTime newDate) {
     date = newDate;
   }
 
+  // Setter for color
   void setColor(Color newColor) {
     color = newColor;
   }
@@ -71,8 +71,7 @@ class _BookUIState extends State<BookUI> {
     bookData = widget.bookData;
   }
 
-
-  /* when Book is pressed, dialogue is displayed to change Books properties*/
+  // Function to handle book press and show dialog to edit book properties
   void handleBookPress() {
     showDialog(
       context: context,
@@ -86,6 +85,7 @@ class _BookUIState extends State<BookUI> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                // Text field for title
                 TextFormField(
                   initialValue: bookData.title,
                   decoration: InputDecoration(
@@ -106,6 +106,7 @@ class _BookUIState extends State<BookUI> {
                     });
                   },
                 ),
+                // Text field for author
                 TextFormField(
                   initialValue: bookData.author,
                   decoration: const InputDecoration(
@@ -117,6 +118,7 @@ class _BookUIState extends State<BookUI> {
                     });
                   },
                 ),
+                // Text field for summary
                 TextFormField(
                   initialValue: bookData.summary,
                   decoration: const InputDecoration(
@@ -128,6 +130,7 @@ class _BookUIState extends State<BookUI> {
                     });
                   },
                 ),
+                // Row for color picker
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -150,6 +153,7 @@ class _BookUIState extends State<BookUI> {
                     ),
                   ],
                 ),
+                // Row for delete and save buttons
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -219,7 +223,9 @@ class _BookUIState extends State<BookUI> {
     );
   }
 }
-/* color picker is accessed via book press, sets the color of book*/
+
+// Stateful widget for color picker dialog,
+// color picker is accessed via book press, sets the color of book
 class ColorPickerDialog extends StatefulWidget {
   final Color initialColor;
 

@@ -4,6 +4,7 @@ import 'package:Ledgable/book.dart';
 
 void main() {
   group('Book', () {
+    // Test to check if book properties are set correctly
     test('Book properties should be set correctly', () {
       final book = Book('Title', 'Author', 'Summary', DateTime(2023, 1, 1), color: Colors.red);
 
@@ -14,6 +15,7 @@ void main() {
       expect(book.color, Colors.red);
     });
 
+    // Test to check if book setters update properties correctly
     test('Book setters should update properties correctly', () {
       final book = Book('Title', 'Author', 'Summary', DateTime(2023, 1, 1));
 
@@ -32,6 +34,7 @@ void main() {
   });
 
   group('BookUI', () {
+    // Test to check if BookUI displays book title
     testWidgets('BookUI should display book title', (WidgetTester tester) async {
       final book = Book('Title', 'Author', 'Summary', DateTime(2023, 1, 1));
 
@@ -44,6 +47,7 @@ void main() {
       expect(find.text('Title'), findsOneWidget);
     });
 
+    // Test to check if BookUI calls onDelete when delete button is pressed
     testWidgets('BookUI should call onDelete when delete button is pressed', (WidgetTester tester) async {
       final book = Book('Title', 'Author', 'Summary', DateTime(2023, 1, 1));
       bool deleted = false;
