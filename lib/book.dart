@@ -1,63 +1,88 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
-// Book class stores the data for the book, including title, author, summary, date, and color.
+
+/* Book class stores the data for the book. Contains a
+* title, author, and summary of the book and can be
+* set with multiple functions. Strings a public.*/
 class Book {
   String title;
   String author;
   String summary;
   DateTime date;
-  Color color;
+  Color color; // Added color
 
-  // Constructor to initialize the book's properties, with a default color of blue-grey.
+  // Constructor accepts 4 arguments
   Book(this.title, this.author, this.summary, this.date, {this.color = Colors.blueGrey});
 
+  String getTitle(){
+    return title;
+  }
   // Setter methods for updating properties
+
+  //Update title
   void setTitle(String newTitle) {
     title = newTitle;
   }
+
+  // Update summary
   void setSummary(String newSummary) {
     summary = newSummary;
   }
+
+  // Update author
   void setAuthor(String newAuthor) {
     author = newAuthor;
   }
+
   void setDate(DateTime newDate) {
     date = newDate;
   }
+
   void setColor(Color newColor) {
     color = newColor;
   }
 }
 
-// Creates a stateful widget for displaying and editing book information.
+/* Creates a stateful widget for creating the visual
+* book. Accepts a book, and coordinates to place the book.
+* Ongoing functionality being added is onPress so that pressing
+* the book will open a book_form. Stateful widgets allow for
+* updating the widget's appearance and data.*/
 class BookUI extends StatefulWidget {
   final Book bookData;
+  final Function(Book) onDelete;
 
-  const BookUI(this.bookData, {super.key});
+  const BookUI(this.bookData, {super.key, required this.onDelete});
 
-  // Getters to access book data
+  //Getters to access bookdata
   String getTitle() {
-    return bookData.title;
+    return bookData.getTitle();
   }
+
   String getSummary() {
     return bookData.summary;
   }
+
   String getAuthor() {
     return bookData.author;
   }
+
   DateTime getDate() {
     return bookData.date;
   }
-
+  // Updating state changes the data of the widget
   @override
   State<BookUI> createState() => _BookUIState();
 }
 
-// Private state class for BookUI, managing state changes and interactions.
+/* Underscore prior class means it's private. Class updates
+* the state of the stateful widget and allows for updating the
+* book and position.*/
 class _BookUIState extends State<BookUI> {
   late Book bookData;
+  String? _titleError = null;
 
   @override
   void initState() {
@@ -65,28 +90,36 @@ class _BookUIState extends State<BookUI> {
     bookData = widget.bookData;
   }
 
-  // Opens a dialog box to edit book properties when the book is pressed.
   void handleBookPress() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        Color tempColor = bookData.color;
+        Color tempColor = bookData.color; // Temporary color variable
         return Dialog(
           child: Container(
             width: 300,
-            height: 400, // Increased height to accommodate color picker
+            height: 320, // Increased height to accommodate color picker
             padding: const EdgeInsets.all(16.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextFormField(
                   initialValue: bookData.title,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Title',
+                    errorText: _titleError, // Display error text if any
                   ),
                   onChanged: (value) {
                     setState(() {
-                      bookData.setTitle(value);
+                      if (value == null || value.isEmpty) {
+                        _titleError = 'Title cannot be empty';
+                      } else if (value.length > 57) {
+                        _titleError = 'Title is too long, will be shortened on display';
+                        bookData.setTitle(value);
+                      } else {
+                        _titleError = null;
+                        bookData.setTitle(value);
+                      }
                     });
                   },
                 ),
@@ -116,7 +149,7 @@ class _BookUIState extends State<BookUI> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text('Color:'),
-                    ElevatedButton(
+                    OutlinedButton(
                       onPressed: () async {
                         Color? pickedColor = await showDialog<Color>(
                           context: context,
@@ -126,7 +159,7 @@ class _BookUIState extends State<BookUI> {
                         );
                         if (pickedColor != null) {
                           setState(() {
-                            tempColor = pickedColor;
+                            bookData.setColor(pickedColor); // Update book color
                           });
                         }
                       },
@@ -134,14 +167,25 @@ class _BookUIState extends State<BookUI> {
                     ),
                   ],
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      bookData.setColor(tempColor); // Update book color
-                    });
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Save'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Delete button
+                    OutlinedButton(
+                      onPressed: () {
+                        setState(() {
+                          widget.onDelete(bookData); // Use the callback
+                        });
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('Delete'),
+                    ),
+                    // Save Button
+                    OutlinedButton(
+                      onPressed: _titleError == 'Title cannot be empty' ? null : () { Navigator.of(context).pop(); },
+                      child: const Text('Save'),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -150,6 +194,7 @@ class _BookUIState extends State<BookUI> {
       },
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +206,7 @@ class _BookUIState extends State<BookUI> {
             width: 200,
             height: 300,
             decoration: BoxDecoration(
-              color: bookData.color,
+              color: bookData.color, // Use book's color
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
                 BoxShadow(
@@ -174,11 +219,14 @@ class _BookUIState extends State<BookUI> {
             ),
             child: Align(
               alignment: const Alignment(0.0, -0.7),
-              child: Text(
+              child: AutoSizeText(
+                minFontSize: 12,
+                maxLines: 5,
                 bookData.title,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Colors.black,
+                style: TextStyle(
+                  overflow: TextOverflow.ellipsis,
+                  color: Colors.black, // Text Color
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -190,7 +238,6 @@ class _BookUIState extends State<BookUI> {
   }
 }
 
-// Dialog for picking a color
 class ColorPickerDialog extends StatelessWidget {
   final Color initialColor;
 
