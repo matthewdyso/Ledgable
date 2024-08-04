@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:Ledgable/edit_book_dialog.dart';
 
 
 /* Book class stores the data for the book. Contains a
@@ -76,111 +77,26 @@ class _BookUIState extends State<BookUI> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        Color tempColor = bookData.color;
-        return Dialog(
-          child: Container(
-            width: 300,
-            height: 320,
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // Text field for title
-                TextFormField(
-                  initialValue: bookData.title,
-                  decoration: InputDecoration(
-                    labelText: 'Title',
-                    errorText: _titleError,
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      if (value.isEmpty) {
-                        _titleError = 'Title cannot be empty';
-                      } else if (value.length > 57) {
-                        _titleError = 'Title is too long, will be shortened on display';
-                        bookData.setTitle(value);
-                      } else {
-                        _titleError = null;
-                        bookData.setTitle(value);
-                      }
-                    });
-                  },
-                ),
-                // Text field for author
-                TextFormField(
-                  initialValue: bookData.author,
-                  decoration: const InputDecoration(
-                    labelText: 'Author',
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      bookData.setAuthor(value);
-                    });
-                  },
-                ),
-                // Text field for summary
-                TextFormField(
-                  initialValue: bookData.summary,
-                  decoration: const InputDecoration(
-                    labelText: 'Summary',
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      bookData.setSummary(value);
-                    });
-                  },
-                ),
-                // Row for color picker
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('Color:'),
-                    OutlinedButton(
-                      onPressed: () async {
-                        Color? pickedColor = await showDialog<Color>(
-                          context: context,
-                          builder: (context) => ColorPickerDialog(
-                            initialColor: tempColor,
-                          ),
-                        );
-                        if (pickedColor != null) {
-                          setState(() {
-                            bookData.setColor(pickedColor);
-                          });
-                        }
-                      },
-                      child: const Text('Pick Color'),
-                    ),
-                  ],
-                ),
-                // Row for delete and save buttons
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    OutlinedButton(
-                      onPressed: () {
-                        setState(() {
-                          widget.onDelete(bookData);
-                        });
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text('Delete'),
-                    ),
-                    OutlinedButton(
-                      onPressed: _titleError == 'Title cannot be empty' ? null : () {
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text('Save'),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+        return EditBookDialog(
+          onSave: (String title, String author, String summary, Color color) {
+            setState(() {
+              bookData.setTitle(title);
+              bookData.setAuthor(author);
+              bookData.setSummary(summary);
+              bookData.setColor(color);
+            });
+          },
+          bookData: bookData,
+          onDelete: (Book book) {
+            setState(() {
+              widget.onDelete(book);
+            });
+          },
         );
       },
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
