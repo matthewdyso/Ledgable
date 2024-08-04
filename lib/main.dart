@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:Ledgable/book.dart';
 import 'package:Ledgable/shelf.dart';
+import 'package:Ledgable/edit_book_dialog.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 // List of sorting options
@@ -41,16 +42,19 @@ class LedgableAppState extends State<LedgableApp> {
       context: context,
       builder: (BuildContext context) {
         return EditBookDialog(
-          onSave: (String title, String author, String summary) {
-            Book book = Book(title, author, summary, DateTime.now());
+          onSave: (String title, String author, String summary, Color color) {
+            Book book = Book(title, author, summary, DateTime.now(), color: color);
             setState(() {
               shelf.addBook(book);
             });
           },
+          bookData: Book('', '', '', DateTime.now()), // Pass an empty book for adding a new book
+          onDelete: (Book book) {}, // No action needed for delete in add mode
         );
       },
     );
   }
+
 
   // Method to create the sort button with menu options
   MenuAnchor sortButton() {
@@ -118,85 +122,7 @@ class LedgableAppState extends State<LedgableApp> {
   }
 }
 
-// Dialog widget to edit book details
-class EditBookDialog extends StatefulWidget {
-  final Function(String, String, String) onSave;
 
-  const EditBookDialog({required this.onSave, super.key});
-
-  @override
-  EditBookDialogState createState() => EditBookDialogState();
-}
-
-class EditBookDialogState extends State<EditBookDialog> {
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _authorController = TextEditingController();
-  final TextEditingController _summaryController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Edit Book'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Text field for title
-          TextField(
-            controller: _titleController,
-            decoration: const InputDecoration(labelText: 'Title'),
-          ),
-          // Text field for author
-          TextField(
-            controller: _authorController,
-            decoration: const InputDecoration(labelText: 'Author'),
-          ),
-          // Text field for summary
-          TextField(
-            controller: _summaryController,
-            decoration: const InputDecoration(labelText: 'Summary'),
-          ),
-          // Row for color picker
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text('Color:'),
-              OutlinedButton(
-                onPressed: () async {
-                  Color? pickedColor = await showDialog<Color>(
-                    context: context,
-                    builder: (context) => const ColorPickerDialog(
-                      initialColor: Colors.blueGrey,
-                    ),
-                  );
-                },
-                child: const Text('Pick Color'),
-              ),
-            ],
-          ),
-        ],
-      ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: const Text('Cancel'),
-        ),
-        TextButton(
-          onPressed: () {
-            widget.onSave(
-              _titleController.text,
-              _authorController.text,
-              _summaryController.text,
-            );
-            Navigator.of(context).pop();
-          },
-          child: const Text('Save'),
-        ),
-      ],
-    );
-  }
-}
 
 // Main function to run the app
 void main() {

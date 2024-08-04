@@ -4,6 +4,8 @@ import 'package:Ledgable/book.dart';
 import 'package:Ledgable/shelf.dart';
 
 void main() {
+
+  //unit tests
   group('Shelf', () {
     // Test to check if Shelf adds and deletes books correctly
     test('Shelf should add and delete books correctly', () {
@@ -39,6 +41,7 @@ void main() {
     });
   });
 
+  //widget tests
   group('ShelfUI', () {
     // Test to check if ShelfUI displays books
     testWidgets('ShelfUI should display books', (WidgetTester tester) async {
