@@ -3,6 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:Ledgable/book.dart';
 
 void main() {
+
+  //unit tests
   group('Book', () {
     // Test to check if book properties are set correctly
     test('Book properties should be set correctly', () {
@@ -33,6 +35,9 @@ void main() {
     });
   });
 
+
+
+  //widget tests
   group('BookUI', () {
     // Test to check if BookUI displays book title
     testWidgets('BookUI should display book title', (WidgetTester tester) async {
