@@ -4,7 +4,7 @@ import 'package:Ledgable/book.dart';
 
 enum Options {dateNew, dateOld, titleAZ, titleZA, authorAZ, authorZA}
 
-
+/* shelf holds books of the same size and sorts them*/
 class Shelf {
   List<Book> books = [];
   double initY = 30;
