@@ -39,7 +39,6 @@ class BookUI extends StatefulWidget {
 * book and position.*/
 class _BookUIState extends State<BookUI> {
   late Book bookData;
-  String? _titleError;
 
   @override
   void initState() {
