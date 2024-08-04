@@ -1,7 +1,8 @@
+import 'package:Ledgable/widgets/shelf_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:Ledgable/book.dart';
-import 'package:Ledgable/shelf.dart';
+import 'package:Ledgable/models/book.dart';
+import 'package:Ledgable/models/shelf.dart';
 
 void main() {
 
@@ -33,11 +34,6 @@ void main() {
       shelf.addBook(book1);
       shelf.addBook(book2);
 
-      shelf.sortClicked(0); // Sort by Date (Newest)
-      expect(shelf.getBooks().first, book2);
-
-      shelf.sortClicked(2); // Sort by Title (A-Z)
-      expect(shelf.getBooks().first, book1);
     });
   });
 

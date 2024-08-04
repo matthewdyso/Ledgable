@@ -1,6 +1,7 @@
+import 'package:Ledgable/widgets/book_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:Ledgable/book.dart';
+import 'package:Ledgable/models/book.dart';
 
 void main() {
 
@@ -21,11 +22,11 @@ void main() {
     test('Book setters should update properties correctly', () {
       final book = Book('Title', 'Author', 'Summary', DateTime(2023, 1, 1));
 
-      book.title = 'New Title';
-      book.author = 'New Author';
-      book.summary = ('New Summary');
-      book.date = DateTime(2024, 1, 1);
-      book.color = Colors.blue;
+      book.setTitle('New Title');
+      book.setAuthor('New Author');
+      book.setSummary('New Summary');
+      book.setDate(DateTime(2024, 1, 1));
+      book.setColor(Colors.blue);
 
       expect(book.title, 'New Title');
       expect(book.author, 'New Author');
