@@ -16,7 +16,7 @@ class Book {
   // Constructor accepts 4 arguments
   Book(this.title, this.author, this.summary, this.date, {this.color = Colors.blueGrey});
 
-  String getTitle(){
+  String getTitle() {
     return title;
   }
 
@@ -24,15 +24,19 @@ class Book {
   void setTitle(String newTitle) {
     title = newTitle;
   }
+
   void setSummary(String newSummary) {
     summary = newSummary;
   }
+
   void setAuthor(String newAuthor) {
     author = newAuthor;
   }
+
   void setDate(DateTime newDate) {
     date = newDate;
   }
+
   void setColor(Color newColor) {
     color = newColor;
   }
@@ -49,20 +53,6 @@ class BookUI extends StatefulWidget {
 
   const BookUI(this.bookData, {super.key, required this.onDelete});
 
-  //Getters to access book data
-  String getTitle() {
-    return bookData.getTitle();
-  }
-  String getSummary() {
-    return bookData.summary;
-  }
-  String getAuthor() {
-    return bookData.author;
-  }
-  DateTime getDate() {
-    return bookData.date;
-  }
-
   // Updating state changes the data of the widget
   @override
   State<BookUI> createState() => _BookUIState();
@@ -73,7 +63,7 @@ class BookUI extends StatefulWidget {
 * book and position.*/
 class _BookUIState extends State<BookUI> {
   late Book bookData;
-  String? _titleError = null;
+  String? _titleError;
 
   @override
   void initState() {
@@ -104,7 +94,7 @@ class _BookUIState extends State<BookUI> {
                   ),
                   onChanged: (value) {
                     setState(() {
-                      if (value == null || value.isEmpty) {
+                      if (value.isEmpty) {
                         _titleError = 'Title cannot be empty';
                       } else if (value.length > 57) {
                         _titleError = 'Title is too long, will be shortened on display';
@@ -152,7 +142,7 @@ class _BookUIState extends State<BookUI> {
                         );
                         if (pickedColor != null) {
                           setState(() {
-                            bookData.setColor(pickedColor); // Update book color
+                            bookData.setColor(pickedColor);
                           });
                         }
                       },
@@ -163,19 +153,19 @@ class _BookUIState extends State<BookUI> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Delete button
                     OutlinedButton(
                       onPressed: () {
                         setState(() {
-                          widget.onDelete(bookData); // Use the callback
+                          widget.onDelete(bookData);
                         });
                         Navigator.of(context).pop();
                       },
                       child: const Text('Delete'),
                     ),
-                    // Save Button
                     OutlinedButton(
-                      onPressed: _titleError == 'Title cannot be empty' ? null : () { Navigator.of(context).pop(); },
+                      onPressed: _titleError == 'Title cannot be empty' ? null : () {
+                        Navigator.of(context).pop();
+                      },
                       child: const Text('Save'),
                     ),
                   ],
@@ -187,7 +177,6 @@ class _BookUIState extends State<BookUI> {
       },
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -217,9 +206,9 @@ class _BookUIState extends State<BookUI> {
                 maxLines: 5,
                 bookData.title,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   overflow: TextOverflow.ellipsis,
-                  color: Colors.black, // Text Color
+                  color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -230,27 +219,38 @@ class _BookUIState extends State<BookUI> {
     );
   }
 }
-
-
 /* color picker is accessed via book press, sets the color of book*/
-class ColorPickerDialog extends StatelessWidget {
+class ColorPickerDialog extends StatefulWidget {
   final Color initialColor;
 
   const ColorPickerDialog({required this.initialColor, super.key});
 
   @override
-  Widget build(BuildContext context) {
-    Color tempColor = initialColor;
+  ColorPickerDialogState createState() => ColorPickerDialogState();
+}
 
+class ColorPickerDialogState extends State<ColorPickerDialog> {
+  late Color tempColor;
+
+  @override
+  void initState() {
+    super.initState();
+    tempColor = widget.initialColor;
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text('Pick a color'),
       content: SingleChildScrollView(
         child: ColorPicker(
-          pickerColor: initialColor,
+          pickerColor: tempColor,
           onColorChanged: (color) {
-            tempColor = color;
+            setState(() {
+              tempColor = color;
+            });
           },
-          labelTypes: [], // Use this to disable labels instead of showLabel
+          labelTypes: [],
           pickerAreaHeightPercent: 0.8,
         ),
       ),
