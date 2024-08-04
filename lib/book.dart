@@ -1,80 +1,61 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
-/* Book class stores the data for the book. Contains a
-* title, author, and summary of the book and can be
-* set with multiple functions. Strings a public.*/
+// Book class stores the data for the book, including title, author, summary, date, and color.
 class Book {
   String title;
   String author;
   String summary;
   DateTime date;
-  Color color; // Added color
+  Color color;
 
-  // Constructor accepts 4 arguments
+  // Constructor to initialize the book's properties, with a default color of blue-grey.
   Book(this.title, this.author, this.summary, this.date, {this.color = Colors.blueGrey});
 
   // Setter methods for updating properties
-
-  //Update title
   void setTitle(String newTitle) {
     title = newTitle;
   }
-
-  // Update summary
   void setSummary(String newSummary) {
     summary = newSummary;
   }
-
-  // Update author
   void setAuthor(String newAuthor) {
     author = newAuthor;
   }
-
   void setDate(DateTime newDate) {
     date = newDate;
   }
-
   void setColor(Color newColor) {
     color = newColor;
   }
 }
 
-/* Creates a stateful widget for creating the visual
-* book. Accepts a book, and coordinates to place the book.
-* Ongoing functionality being added is onPress so that pressing
-* the book will open a book_form. Stateful widgets allow for
-* updating the widget's appearance and data.*/
+// Creates a stateful widget for displaying and editing book information.
 class BookUI extends StatefulWidget {
   final Book bookData;
 
   const BookUI(this.bookData, {super.key});
 
-  //Getters to access bookdata
+  // Getters to access book data
   String getTitle() {
     return bookData.title;
   }
-
   String getSummary() {
     return bookData.summary;
   }
-
   String getAuthor() {
     return bookData.author;
   }
-
   DateTime getDate() {
     return bookData.date;
   }
 
-  // Updating state changes the data of the widget
   @override
   State<BookUI> createState() => _BookUIState();
 }
 
-/* Underscore prior class means it's private. Class updates
-* the state of the stateful widget and allows for updating the
-* book and position.*/
+// Private state class for BookUI, managing state changes and interactions.
 class _BookUIState extends State<BookUI> {
   late Book bookData;
 
@@ -84,11 +65,12 @@ class _BookUIState extends State<BookUI> {
     bookData = widget.bookData;
   }
 
+  // Opens a dialog box to edit book properties when the book is pressed.
   void handleBookPress() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        Color tempColor = bookData.color; // Temporary color variable
+        Color tempColor = bookData.color;
         return Dialog(
           child: Container(
             width: 300,
@@ -179,7 +161,7 @@ class _BookUIState extends State<BookUI> {
             width: 200,
             height: 300,
             decoration: BoxDecoration(
-              color: bookData.color, // Use book's color
+              color: bookData.color,
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
                 BoxShadow(
@@ -196,7 +178,7 @@ class _BookUIState extends State<BookUI> {
                 bookData.title,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
-                  color: Colors.black, // Text Color
+                  color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -208,6 +190,7 @@ class _BookUIState extends State<BookUI> {
   }
 }
 
+// Dialog for picking a color
 class ColorPickerDialog extends StatelessWidget {
   final Color initialColor;
 
