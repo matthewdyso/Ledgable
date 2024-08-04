@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 // Stateful widget for color picker dialog,
-// color picker is accessed via book press, sets the color of book
+// Color picker is used in the edit_book_dialog to set the color of the book UI
 class ColorPickerDialog extends StatefulWidget {
   final Color initialColor;
 
