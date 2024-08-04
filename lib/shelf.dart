@@ -12,17 +12,14 @@ class Shelf {
   // Constructor to initialize shelf dimensions
   Shelf();
 
-  // Method to add a book to the shelf
   void addBook(Book book) {
     books.add(book);
   }
 
-  // Method to delete a book from the shelf
   void deleteBook(Book book) {
     books.remove(book);
   }
 
-  // Method to get the list of books on the shelf
   List<Book> getBooks() {
     return books;
   }
@@ -73,7 +70,6 @@ class ShelfUIState extends State<ShelfUI> {
     shelf = widget.shelf;
   }
 
-  // Method to add a new book to the shelf
   void addBook() {
     setState(() {
       Book newBook = Book('New Book', 'New Author', 'New Summary', DateTime.now());
@@ -82,7 +78,6 @@ class ShelfUIState extends State<ShelfUI> {
     });
   }
 
-  // Method to delete a book from the shelf
   void deleteBook(Book book) {
     setState(() {
       shelf.deleteBook(book);
@@ -90,19 +85,14 @@ class ShelfUIState extends State<ShelfUI> {
     });
   }
 
-  // Method to edit a book on the shelf
-  void editBook() {
-    setState(() {});
-  }
 
-  // Method to sort books on the shelf
   void sortBooks(int index) {
     setState(() {
       shelf.sortClicked(index);
     });
   }
 
-  // Method to build the UI for the books on the shelf
+  // Method to build the UIs for the books on the shelf
   List<BookUI> buildBookUI() {
     List<BookUI> bookUIs = [];
     for (int i = 0; i < shelf.getBooks().length; i++) {
@@ -137,62 +127,4 @@ class ShelfUIState extends State<ShelfUI> {
   }
 }
 
-// Main function to run the app
-void main() => runApp(const ShelfApp());
-
-// Stateless widget to create the main app
-class ShelfApp extends StatelessWidget {
-  const ShelfApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-
-        // Create sample books
-        Book harryPotter = Book(
-          'Harry Potter and the Order of the Phoenix',
-          'J. K. Rowling',
-          'He said calmly',
-          DateTime.now(),
-        );
-        Book got = Book(
-          'Game of Thrones',
-          'George RR Martin',
-          'Bilbo Baggins',
-          DateTime.now(),
-        );
-        Book idk = Book(
-          'IDK anymore',
-          'J. K. Rowling',
-          'IDK man this aint a book',
-          DateTime.now(),
-        );
-        Book random = Book(
-          'Random Book',
-          'J. K. Rowling',
-          'probability of me being a book = 0',
-          DateTime.now(),
-        );
-
-        // Create a shelf and add sample books to it
-        Shelf shelf = Shelf();
-        shelf.addBook(harryPotter);
-        shelf.addBook(got);
-        shelf.addBook(idk);
-        shelf.addBook(random);
-
-        return MaterialApp(
-          theme: ThemeData(useMaterial3: true),
-          home: Scaffold(
-            appBar: AppBar(title: const Text('Shelf Sample')),
-            body: Center(
-              child: ShelfUI(shelf),
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
 
