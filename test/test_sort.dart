@@ -5,7 +5,7 @@ import 'package:Ledgable/book.dart';
 void main() {
   group('Shelf', () {
     test('sorts books by title', () {
-      Shelf shelf = Shelf(width: 0, height: 0);
+      Shelf shelf = Shelf();
       shelf.addBook(Book('Harry Potter and the Order of the Phoenix', 'J. K. Rowling', 'He said calmly', DateTime(2003, 6, 21)));
       shelf.addBook(Book('Game of Thrones', 'George RR Martin', 'Bilbo Baggins', DateTime(1996, 8, 1)));
       shelf.addBook(Book('IDK anymore', 'J. K. Rowling', 'IDK man this aint a book', DateTime.now()));
@@ -24,7 +24,7 @@ void main() {
 
 
     test('sorts books by author', () {
-      Shelf shelf = Shelf(width: 0, height: 0);
+      Shelf shelf = Shelf();
       shelf.addBook(Book('Harry Potter and the Order of the Phoenix', 'J. K. Rowling', 'He said calmly', DateTime(2003, 6, 21)));
       shelf.addBook(Book('Game of Thrones', 'George RR Martin', 'Bilbo Baggins', DateTime(1996, 8, 1)));
       shelf.addBook(Book('IDK anymore', 'J. K. Rowling', 'IDK man this aint a book', DateTime.now()));
@@ -42,7 +42,7 @@ void main() {
 
 
     test('sorts books by date', () {
-      Shelf shelf = Shelf(width: 0, height: 0);
+      Shelf shelf = Shelf();
       shelf.addBook(Book('Harry Potter and the Order of the Phoenix', 'J. K. Rowling', 'He said calmly', DateTime(2003, 6, 21)));
       shelf.addBook(Book('Game of Thrones', 'George RR Martin', 'Bilbo Baggins', DateTime(1996, 8, 1)));
       shelf.addBook(Book('IDK anymore', 'J. K. Rowling', 'IDK man this aint a book', DateTime(2001, 2, 1)));

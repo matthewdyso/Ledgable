@@ -22,13 +22,13 @@ class LedgableAppState extends State<LedgableApp> {
     super.initState();
 
     // Create sample books, maximum word limit is 57 characters
-    Book harryPotter = Book('Harry Potter and the Order of the Phoenix And the buss do', 'J. K. Rowling', 'He said calmly', DateTime.now());
+    Book harryPotter = Book('Harry Potter and the Order of the Phoenix, make this really long for testing', 'J. K. Rowling', 'He said calmly', DateTime.now());
     Book got = Book('Game of Thrones', 'George RR Martin', 'Bilbo Baggins', DateTime.now());
     Book idk = Book('IDK anymore', 'J. K. Rowling', 'IDK man this aint a book', DateTime.now());
     Book random = Book('Random Book', 'J. K. Rowling', 'probability of me being a book = 0', DateTime.now());
 
     // Initialize shelf and add sample books
-    shelf = Shelf(width: 0, height: 0);
+    shelf = Shelf();
     shelf.addBook(harryPotter);
     shelf.addBook(got);
     shelf.addBook(idk);
@@ -74,7 +74,7 @@ class LedgableAppState extends State<LedgableApp> {
           onPressed: () {
             setState(() {
               shelf.sortClicked(index);
-              shelf = Shelf(width: shelf.width, height: shelf.height)..books = shelf.books;
+              shelf = Shelf()..books = shelf.books;
             });
           },
           child: Text(options[index]),
@@ -85,11 +85,6 @@ class LedgableAppState extends State<LedgableApp> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;    // Gives the width
-    double height = MediaQuery.of(context).size.height;  // Gives the height
-
-    shelf.setSize(width, height);
-
     return MaterialApp(
       title: 'Ledgable',
       theme: ThemeData(

@@ -7,20 +7,10 @@ enum Options { dateNew, dateOld, titleAZ, titleZA, authorAZ, authorZA }
 // Shelf class to hold and manage a collection of books of the same size and sorts them
 class Shelf {
   List<Book> books = [];
-  double initY = 30;
-  double width;
-  double height;
-
   Options? selectedMenu;
 
   // Constructor to initialize shelf dimensions
-  Shelf({this.width = 0, this.height = 0});
-
-  // Method to set shelf dimensions
-  void setSize(double w, double h) {
-    width = w;
-    height = h;
-  }
+  Shelf();
 
   // Method to add a book to the shelf
   void addBook(Book book) {
@@ -158,8 +148,6 @@ class ShelfApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        double width = constraints.maxWidth;
-        double height = constraints.maxHeight;
 
         // Create sample books
         Book harryPotter = Book(
@@ -188,7 +176,7 @@ class ShelfApp extends StatelessWidget {
         );
 
         // Create a shelf and add sample books to it
-        Shelf shelf = Shelf(width: width, height: height);
+        Shelf shelf = Shelf();
         shelf.addBook(harryPotter);
         shelf.addBook(got);
         shelf.addBook(idk);
