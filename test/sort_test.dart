@@ -6,7 +6,7 @@ import 'package:Ledgable/models/book.dart';
 void main() {
   group('Shelf', () {
     test('sorts books by title', () {
-      Shelf shelf = Shelf(width: 0, height: 0);
+      Shelf shelf = Shelf();
       SortBookManager sortClicked = SortBookManager();
       shelf.addBook(Book('Harry Potter and the Order of the Phoenix', 'J. K. Rowling', 'He said calmly', DateTime(2003, 6, 21)));
       shelf.addBook(Book('Game of Thrones', 'George RR Martin', 'Bilbo Baggins', DateTime(1996, 8, 1)));
@@ -26,7 +26,7 @@ void main() {
 
 
     test('sorts books by author', () {
-      Shelf shelf = Shelf(width: 0, height: 0);
+      Shelf shelf = Shelf();
       SortBookManager sortClicked = SortBookManager();
       shelf.addBook(Book('Harry Potter and the Order of the Phoenix', 'J. K. Rowling', 'He said calmly', DateTime(2003, 6, 21)));
       shelf.addBook(Book('Game of Thrones', 'George RR Martin', 'Bilbo Baggins', DateTime(1996, 8, 1)));
@@ -45,7 +45,7 @@ void main() {
 
 
     test('sorts books by date', () {
-      Shelf shelf = Shelf(width: 0, height: 0);
+      Shelf shelf = Shelf();
       SortBookManager sortClicked = SortBookManager();
       shelf.addBook(Book('Harry Potter and the Order of the Phoenix', 'J. K. Rowling', 'He said calmly', DateTime(2003, 6, 21)));
       shelf.addBook(Book('Game of Thrones', 'George RR Martin', 'Bilbo Baggins', DateTime(1996, 8, 1)));

@@ -1,47 +1,8 @@
-<<<<<<< Updated upstream:lib/book.dart
 import 'package:flutter/material.dart';
-
-
-/* Book class stores the data for the book. Contains a
-* title, author, and summary of the book and can be
-* set with multiple functions. Strings a public.*/
-class Book {
-  String title;
-  String author;
-  String summary;
-  DateTime date;
-
-  // Constructor accepts 3 arguments
-  Book(this.title, this.author, this.summary, this.date);
-
-  // Setter methods for updating properties
-
-  //Update title
-  void setTitle(String newTitle) {
-    title = newTitle;
-  }
-
-  // Update summary
-  void setSummary(String newSummary) {
-    summary = newSummary;
-  }
-  // Update author
-  void setAuthor(String newAuthor) {
-    author = newAuthor;
-  }
-
-  void setDate(DateTime newDate) {
-    date = newDate;
-  }
-
-}
-=======
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/material.dart';
 import 'package:Ledgable/models/book.dart';
-
 import 'edit_book_dialog.dart';
->>>>>>> Stashed changes:lib/widgets/book_ui.dart
+
 
 /* Creates a stateful widget for creating the visual
 * book. Accepts a book, and coordinates to place the book.
@@ -50,11 +11,9 @@ import 'edit_book_dialog.dart';
 * updating the widget's appearance and data.*/
 class BookUI extends StatefulWidget {
   final Book bookData;
-  final double initialX;
-  final double initialY;
-  final VoidCallback onPress;
+  final Function(Book) onDelete;
 
-  const BookUI(this.bookData, this.initialX, this.initialY, {required this.onPress, super.key});
+  const BookUI(this.bookData, {super.key, required this.onDelete});
 
   // Updating state changes the data of the widget
   @override
@@ -66,75 +25,70 @@ class BookUI extends StatefulWidget {
 * book and position.*/
 class _BookUIState extends State<BookUI> {
   late Book bookData;
-<<<<<<< Updated upstream:lib/book.dart
-  late double x;
-  late double y;
-=======
->>>>>>> Stashed changes:lib/widgets/book_ui.dart
 
-  //initialize with starting values
   @override
   void initState() {
     super.initState();
     bookData = widget.bookData;
-    x = widget.initialX;
-    y = widget.initialY;
   }
 
-  //changes book information shown
-  void updateBookData(Book newBookData) {
-    setState(() {
-      bookData = newBookData;
-    });
+  // Function to handle book press and show dialog to edit book properties
+  void handleBookPress() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return EditBookDialog(
+          onSave: (String title, String author, String summary, Color color) {
+            setState(() {
+              bookData.title = title;
+              bookData.author = author;
+              bookData.summary = summary;
+              bookData.color = color;
+            });
+          },
+          bookData: bookData,
+          onDelete: (Book book) {
+            setState(() {
+              widget.onDelete(book);
+            });
+          },
+        );
+      },
+    );
   }
 
-  //updates position of book
-  void updatePosition(double newX, double newY) {
-    setState(() {
-      x = newX;
-      y = newY;
-    });
-  }
-
-  // Builds a widget that is 150x50 (H * W)
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        //sets position
-        Positioned(
-          top: y,
-          left: x,
-          child: GestureDetector(
-            onTap: widget.onPress,
-            //sets container to contain book text
-            child: Container(
-              width: 50,
-              height: 150,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 2,
-                    blurRadius: 5,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
-              ),
-              //Creates rotated text box, centered in container
-              child: Center(
-                child: RotatedBox(
-                  quarterTurns: -3,
-                  child: Text(
-                    bookData.title,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+        GestureDetector(
+          onTap: handleBookPress,
+          child: Container(
+            width: 200,
+            height: 300,
+            decoration: BoxDecoration(
+              color: bookData.color,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
+            child: Align(
+              alignment: const Alignment(0.0, -0.7),
+              child: AutoSizeText(
+                minFontSize: 12,
+                maxLines: 5,
+                bookData.title,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  overflow: TextOverflow.ellipsis,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
@@ -143,8 +97,4 @@ class _BookUIState extends State<BookUI> {
       ],
     );
   }
-<<<<<<< Updated upstream:lib/book.dart
 }
-=======
-}
->>>>>>> Stashed changes:lib/widgets/book_ui.dart

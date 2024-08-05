@@ -46,7 +46,7 @@ void main() {
 
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
-          body: BookUI(book, onDelete: (Book book) {}),
+          body: BookUI(book, key:ValueKey<DateTime>(book.date), onDelete: (Book book) {}),
         ),
       ));
 
@@ -60,7 +60,7 @@ void main() {
 
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
-          body: BookUI(book, onDelete: (Book book) {
+          body: BookUI(book, key:ValueKey<DateTime>(book.date), onDelete: (Book book) {
             deleted = true;
           }),
         ),
