@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:Ledgable/models/book.dart';
 import 'package:Ledgable/models/shelf.dart';
 import 'package:Ledgable/widgets/shelf_ui.dart';
-import 'package:Ledgable/widgets/edit_book_dialog.dart';
+import 'package:Ledgable/managers/add_book_manager.dart';
+import 'package:Ledgable/managers/book_manager.dart';
+import 'package:Ledgable/managers/edit_book_manager.dart';
+import 'package:Ledgable/managers/sort_book_manager.dart';
 
-// List of sorting options
-List<String> options = ['Date (Newest)', 'Date (Oldest)', 'Title A-Z', 'Title Z-A', 'Author A-Z', 'Author Z-A'];
 
 // Main application widget
 class LedgableApp extends StatefulWidget {
@@ -17,46 +18,45 @@ class LedgableApp extends StatefulWidget {
 
 class LedgableAppState extends State<LedgableApp> {
   late Shelf shelf;
+  static const List<String> options = ['Date (Newest)', 'Date (Oldest)', 'Title A-Z', 'Title Z-A', 'Author A-Z', 'Author Z-A'];
+  final SortBookManager sortBookManager = SortBookManager();
 
   @override
   void initState() {
     super.initState();
 
-    // Create sample books, maximum word limit is 57 characters
-    Book harryPotter = Book('Harry Potter and the Order of the Phoenix, make this really long for testing', 'J. K. Rowling', 'He said calmly', DateTime.now());
+    Book harryPotter = Book('Harry Potter and the Order of the Phoenix And the buss do', 'J. K. Rowling', 'He said calmly', DateTime.now());
     Book got = Book('Game of Thrones', 'George RR Martin', 'Bilbo Baggins', DateTime.now());
     Book idk = Book('IDK anymore', 'J. K. Rowling', 'IDK man this aint a book', DateTime.now());
     Book random = Book('Random Book', 'J. K. Rowling', 'probability of me being a book = 0', DateTime.now());
 
-    // Initialize shelf and add sample books
-    shelf = Shelf();
+    shelf = Shelf(width: 0, height: 0);
     shelf.addBook(harryPotter);
     shelf.addBook(got);
     shelf.addBook(idk);
     shelf.addBook(random);
   }
 
-  // Method to handle adding a new book
   void handleAddBook() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return EditBookDialog(
-          onSave: (String title, String author, String summary, Color color) {
-            Book book = Book(title, author, summary, DateTime.now(), color: color);
-            setState(() {
-              shelf.addBook(book);
-            });
-          },
-          bookData: Book('', '', '', DateTime.now()), // Pass an empty book for adding a new book
-          onDelete: (Book book) {}, // No action needed for delete in add mode
-        );
-      },
-    );
+    BookManager bookManager = AddBookManager(shelf);
+    bookManager.manageBook(context, Book('', '', '', DateTime.now()));
   }
 
+  void handleEditBook(Book book) {
+    BookManager bookManager = EditBookManager((Book book) {
+      setState(() {
+        shelf.deleteBook(book);
+      });
+    });
+    bookManager.manageBook(context, book);
+  }
 
-  // Method to create the sort button with menu options
+  void handleSortBooks(int index) {
+    setState(() {
+      sortBookManager.sortBooks(shelf.getBooks(), index);
+    });
+  }
+
   MenuAnchor sortButton() {
     return MenuAnchor(
       builder: (BuildContext context, MenuController controller, Widget? child) {
@@ -76,10 +76,7 @@ class LedgableAppState extends State<LedgableApp> {
         6,
             (int index) => MenuItemButton(
           onPressed: () {
-            setState(() {
-              shelf.sortClicked(index);
-              shelf = Shelf()..books = shelf.books;
-            });
+            handleSortBooks(index);
           },
           child: Text(options[index]),
         ),
@@ -89,6 +86,11 @@ class LedgableAppState extends State<LedgableApp> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;    // Gives the width
+    double height = MediaQuery.of(context).size.height;  // Gives the height
+
+    shelf.setSize(width, height);
+
     return MaterialApp(
       title: 'Ledgable',
       theme: ThemeData(
@@ -121,4 +123,3 @@ class LedgableAppState extends State<LedgableApp> {
     );
   }
 }
-

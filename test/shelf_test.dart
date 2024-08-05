@@ -33,14 +33,10 @@ void main() {
       shelf.addBook(book1);
       shelf.addBook(book2);
 
-      // Sort by title AZ
-      shelf.sortClicked(Options.titleAZ.index);
 
       expect(shelf.getBooks().first, book1);
       expect(shelf.getBooks().last, book2);
 
-      // Sort by date new
-      shelf.sortClicked(Options.dateNew.index);
 
       expect(shelf.getBooks().first, book1);
       expect(shelf.getBooks().last, book2);

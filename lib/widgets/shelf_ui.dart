@@ -38,12 +38,6 @@ class ShelfUIState extends State<ShelfUI> {
   }
 
 
-  void sortBooks(int index) {
-    setState(() {
-      shelf.sortClicked(index);
-    });
-  }
-
   // Method to build the UIs for the books on the shelf
   List<BookUI> buildBookUI() {
     List<BookUI> bookUIs = [];
