@@ -1,7 +1,7 @@
-import 'package:Ledgable/managers/sort_book_manager.dart';
+import 'package:ledgable/managers/sort_book_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:Ledgable/models/shelf.dart';
-import 'package:Ledgable/models/book.dart';
+import 'package:ledgable/models/shelf.dart';
+import 'package:ledgable/models/book.dart';
 
 void main() {
   group('Shelf', () {

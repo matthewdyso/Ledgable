@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:Ledgable/models/book.dart';
-import 'package:Ledgable/models/shelf.dart';
-import 'package:Ledgable/widgets/book_ui.dart';
+import 'package:ledgable/models/book.dart';
+import 'package:ledgable/models/shelf.dart';
+import 'package:ledgable/widgets/book_ui.dart';
 
 // Stateful widget to create the visual representation of a shelf
 class ShelfUI extends StatefulWidget {

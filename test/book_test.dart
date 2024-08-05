@@ -1,7 +1,7 @@
-import 'package:Ledgable/widgets/book_ui.dart';
+import 'package:ledgable/widgets/book_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:Ledgable/models/book.dart';
+import 'package:ledgable/models/book.dart';
 
 void main() {
 

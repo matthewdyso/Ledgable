@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:Ledgable/models/book.dart';
-import 'package:Ledgable/models/shelf.dart';
-import 'package:Ledgable/widgets/shelf_ui.dart';
-import 'package:Ledgable/managers/add_book_manager.dart';
-import 'package:Ledgable/managers/book_manager.dart';
-import 'package:Ledgable/managers/edit_book_manager.dart';
-import 'package:Ledgable/managers/sort_book_manager.dart';
+import 'package:ledgable/models/book.dart';
+import 'package:ledgable/models/shelf.dart';
+import 'package:ledgable/widgets/shelf_ui.dart';
+import 'package:ledgable/managers/add_book_manager.dart';
+import 'package:ledgable/managers/book_manager.dart';
+import 'package:ledgable/managers/edit_book_manager.dart';
+import 'package:ledgable/managers/sort_book_manager.dart';
 
 
 // Main application widget

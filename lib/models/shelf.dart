@@ -1,4 +1,4 @@
-import 'package:Ledgable/models/book.dart';
+import 'package:ledgable/models/book.dart';
 
 // Shelf class to hold and manage a collection of books of the same size
 class Shelf {
