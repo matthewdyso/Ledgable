@@ -8,7 +8,8 @@ class EditBookDialog extends StatefulWidget {
   final Book bookData;
   final Function(Book) onDelete;
 
-  const EditBookDialog({required this.onSave, required this.bookData, required this.onDelete, super.key});
+  const EditBookDialog({required this.onSave,
+    required this.bookData, required this.onDelete, super.key});
 
   @override
   EditBookDialogState createState() => EditBookDialogState();

@@ -24,7 +24,8 @@ class ShelfUIState extends State<ShelfUI> {
 
   void addBook() {
     setState(() {
-      Book newBook = Book('New Book', 'New Author', 'New Summary', DateTime.now());
+      Book newBook = Book('New Book',
+          'New Author', 'New Summary', DateTime.now());
       shelf.addBook(newBook);
       buildBookUI();
     });

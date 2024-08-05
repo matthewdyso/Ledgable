@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ledgable/models/book.dart';
-import 'package:ledgable/models/shelf.dart';
-import 'package:ledgable/widgets/shelf_ui.dart';
 import 'package:ledgable/managers/add_book_manager.dart';
 import 'package:ledgable/managers/book_manager.dart';
 import 'package:ledgable/managers/edit_book_manager.dart';
 import 'package:ledgable/managers/sort_book_manager.dart';
+import 'package:ledgable/models/book.dart';
+import 'package:ledgable/models/shelf.dart';
+import 'package:ledgable/widgets/shelf_ui.dart';
 
 
 // Main application widget
@@ -18,17 +18,22 @@ class LedgableApp extends StatefulWidget {
 
 class LedgableAppState extends State<LedgableApp> {
   late Shelf shelf;
-  static const List<String> options = ['Date (Newest)', 'Date (Oldest)', 'Title A-Z', 'Title Z-A', 'Author A-Z', 'Author Z-A'];
+  static const List<String> options = ['Date (Newest)', 'Date (Oldest)',
+    'Title A-Z', 'Title Z-A', 'Author A-Z', 'Author Z-A'];
   final SortBookManager sortBookManager = SortBookManager();
 
   @override
   void initState() {
     super.initState();
 
-    Book harryPotter = Book('Harry Potter and the Order of the Phoenix And the buss do', 'J. K. Rowling', 'He said calmly', DateTime.now());
-    Book got = Book('Game of Thrones', 'George RR Martin', 'Bilbo Baggins', DateTime.now());
-    Book idk = Book('IDK anymore', 'J. K. Rowling', 'IDK man this aint a book', DateTime.now());
-    Book random = Book('Random Book', 'J. K. Rowling', 'probability of me being a book = 0', DateTime.now());
+    Book harryPotter = Book('Harry Potter and the Order of the Phoenix '
+        'And the buss do', 'J. K. Rowling', 'He said calmly', DateTime.now());
+    Book got = Book('Game of Thrones', 'George RR Martin', 'Bilbo Baggins',
+        DateTime.now());
+    Book idk = Book('IDK anymore', 'J. K. Rowling', 'IDK man this aint a book',
+        DateTime.now());
+    Book random = Book('Random Book', 'J. K. Rowling',
+        'probability of me being a book = 0', DateTime.now());
 
     shelf = Shelf(width: 0, height: 0);
     shelf.addBook(harryPotter);
@@ -59,7 +64,8 @@ class LedgableAppState extends State<LedgableApp> {
 
   MenuAnchor sortButton() {
     return MenuAnchor(
-      builder: (BuildContext context, MenuController controller, Widget? child) {
+      builder: (BuildContext context, MenuController controller,
+          Widget? child) {
         return IconButton(
           onPressed: () {
             if (controller.isOpen) {

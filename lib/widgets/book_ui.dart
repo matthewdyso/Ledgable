@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/material.dart';
 import 'package:ledgable/models/book.dart';
 import 'package:ledgable/widgets/edit_book_dialog.dart';
 
