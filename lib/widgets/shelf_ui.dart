@@ -71,10 +71,6 @@ class ShelfUIState extends State<ShelfUI> {
         mainAxisSpacing: 40,
         children: buildBookUI(),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: addBook,
-        child: const Icon(Icons.add),
-      ),
     );
   }
 }

@@ -26,12 +26,11 @@ class Shelf {
   // Method to handle sorting when a sort option is clicked
   void sortClicked(int index) {
     books.sort((a, b) => sortBooks(a, b, Options.values[index]));
-    getBooks();
   }
 
   // Method to sort books based on the selected option
   int sortBooks(final Book a, final Book b, Options? selection) {
-    switch (selectedMenu) {
+    switch (selection) {
       case Options.dateNew:
         return b.date.compareTo(a.date);
       case Options.titleAZ:

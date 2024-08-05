@@ -5,8 +5,7 @@ import 'package:Ledgable/models/book.dart';
 import 'package:Ledgable/models/shelf.dart';
 
 void main() {
-
-  //unit tests
+  // Unit tests
   group('Shelf', () {
     // Test to check if Shelf adds and deletes books correctly
     test('Shelf should add and delete books correctly', () {
@@ -28,16 +27,27 @@ void main() {
     // Test to check if Shelf sorts books correctly
     test('Shelf should sort books correctly', () {
       final shelf = Shelf();
-      final book1 = Book('TitleA', 'AuthorA', 'SummaryA', DateTime(2023, 1, 1));
-      final book2 = Book('TitleB', 'AuthorB', 'SummaryB', DateTime(2023, 1, 2));
+      final book1 = Book('TitleA', 'AuthorA', 'SummaryA', DateTime(2023, 1, 2));
+      final book2 = Book('TitleB', 'AuthorB', 'SummaryB', DateTime(2023, 1, 1));
 
       shelf.addBook(book1);
       shelf.addBook(book2);
 
+      // Sort by title AZ
+      shelf.sortClicked(Options.titleAZ.index);
+
+      expect(shelf.getBooks().first, book1);
+      expect(shelf.getBooks().last, book2);
+
+      // Sort by date new
+      shelf.sortClicked(Options.dateNew.index);
+
+      expect(shelf.getBooks().first, book1);
+      expect(shelf.getBooks().last, book2);
     });
   });
 
-  //widget tests
+  // Widget tests
   group('ShelfUI', () {
     // Test to check if ShelfUI displays books
     testWidgets('ShelfUI should display books', (WidgetTester tester) async {
@@ -63,14 +73,24 @@ void main() {
       final shelf = Shelf();
 
       await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: ShelfUI(shelf),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              shelf.addBook(Book('New Book', 'New Author', 'New Summary', DateTime.now()));
-            },
-            child: const Icon(Icons.add),
-          ),
+        home: StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Scaffold(
+              appBar: AppBar(
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        shelf.addBook(Book('New Book', '', '', DateTime.now()));
+                      });
+                    },
+                    icon: const Icon(Icons.add),
+                  ),
+                ],
+              ),
+              body: ShelfUI(shelf),
+            );
+          },
         ),
       ));
 

@@ -174,7 +174,7 @@ class ColorPickerDialogState extends State<ColorPickerDialog> {
               tempColor = color;
             });
           },
-          labelTypes: [],
+          labelTypes: const [],
           pickerAreaHeightPercent: 0.8,
         ),
       ),

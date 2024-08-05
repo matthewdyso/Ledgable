@@ -14,7 +14,7 @@ void main() {
       shelf.addBook(Book('Random Book', 'J. K. Rowling', 'probability of me being a book = 0', DateTime.now()));
 
       // Sort by title
-      sortClicked.sortBooks(shelf.books, 3);
+      sortClicked.sortBooks(shelf.books, 2);
 
       // Check if the books are sorted correctly
       expect(shelf.books[0].title, equals('Game of Thrones'));
@@ -34,7 +34,7 @@ void main() {
       shelf.addBook(Book('Random Book', 'J. K. Rowling', 'probability of me being a book = 0', DateTime.now()));
 
       // Sort by author
-      sortClicked.sortBooks(shelf.books, 5);
+      sortClicked.sortBooks(shelf.books, 4);
 
       // Check if the books are sorted correctly
       expect(shelf.books[0].author, equals('George RR Martin'));
