@@ -1,6 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:Ledgable/models/book.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
+
+Future<String> get _localPath async {
+  final directory = await getApplicationDocumentsDirectory();
+
+  return directory.path;
+}
+
+Future<File> get _localFile async {
+  final path = await _localPath;
+  return File('$path/counter.txt');
+}
+
+Future<File> writeBook(String _title, String _author, String _summary, Color _picked) async {
+  final file = await _localFile;
+
+  // Write the file
+  return file.writeAsString('$_title\n$_author\n$_summary\n$_picked\n', mode: FileMode.append);
+}
+
+Future<File> deleteBook(String name) async {
+  bool flag = false;
+  final file = await _localFile;
+  Future<List<String>> futureLines = file.readAsLines();
+  List<String> lines = await futureLines;
+  for(int i = 0; i < lines.length; i+=4)
+    {
+      String titleLine = lines[i];
+      if(name == titleLine)
+      {
+          lines[i] = "\n";
+          lines[i+1] = "\n";
+          lines[i+2] = "\n";
+          lines[i+3] = "\n";
+          print("Deleted $name\n");
+          flag = true;
+      }
+    }
+  if(false)
+    {
+      file.writeAsString("");
+      for(int i = 0; i < lines.length; ++i)
+      {
+        if(lines[i] != "\n")
+          {
+            String currLine = lines[i];
+            file.writeAsString('$currLine', mode: FileMode.append);
+          }
+      }
+    }
+
+  print("Done...\n");
+  return file;
+
+}
 
 // Dialog widget to edit book details
 class EditBookDialog extends StatefulWidget {
@@ -114,6 +170,7 @@ class EditBookDialogState extends State<EditBookDialog> {
           onPressed: () {
             widget.onDelete(widget.bookData);
             Navigator.of(context).pop();
+            deleteBook(_titleController.text);
           },
           child: const Text('Delete'),
         ),
@@ -133,6 +190,7 @@ class EditBookDialogState extends State<EditBookDialog> {
               );
               Navigator.of(context).pop();
             }
+          writeBook(_titleController.text,_authorController.text,_summaryController.text,tempColor);
           },
           child: const Text('Save'),
         ),

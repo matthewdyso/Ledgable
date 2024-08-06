@@ -4,6 +4,7 @@ import 'package:Ledgable/models/shelf.dart';
 import 'package:Ledgable/widgets/shelf_ui.dart';
 import 'package:Ledgable/widgets/edit_book_dialog.dart';
 
+
 // List of sorting options
 List<String> options = ['Date (Newest)', 'Date (Oldest)', 'Title A-Z', 'Title Z-A', 'Author A-Z', 'Author Z-A'];
 
@@ -17,6 +18,8 @@ class LedgableApp extends StatefulWidget {
 
 class LedgableAppState extends State<LedgableApp> {
   late Shelf shelf;
+
+
 
   @override
   void initState() {
