@@ -35,7 +35,7 @@ class LedgableAppState extends State<LedgableApp> {
     Book random = Book('Random Book', 'J. K. Rowling',
         'probability of me being a book = 0', DateTime.now());
 
-    shelf = Shelf(width: 0, height: 0);
+    shelf = Shelf();
     shelf.addBook(harryPotter);
     shelf.addBook(got);
     shelf.addBook(idk);
@@ -92,12 +92,9 @@ class LedgableAppState extends State<LedgableApp> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;    // Gives the width
-    double height = MediaQuery.of(context).size.height;  // Gives the height
-
-    shelf.setSize(width, height);
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Ledgable',
       theme: ThemeData(
         primarySwatch: Colors.blue,
