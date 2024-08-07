@@ -1,29 +1,28 @@
+import 'dart:core';
+
 import 'package:flutter/material.dart';
-<<<<<<< Updated upstream
-import 'book.dart';
-=======
-import 'package:Ledgable/models/book.dart';
-import 'package:Ledgable/models/shelf.dart';
-import 'package:Ledgable/widgets/shelf_ui.dart';
-import 'package:Ledgable/managers/add_book_manager.dart';
-import 'package:Ledgable/managers/edit_book_manager.dart';
-import 'package:Ledgable/managers/book_manager.dart';
-import 'package:Ledgable/managers/sort_book_manager.dart';
+import 'package:ledgable/models/book.dart';
+import 'package:ledgable/models/shelf.dart';
+import 'package:ledgable/widgets/shelf_ui.dart';
+import 'package:ledgable/managers/add_book_manager.dart';
+import 'package:ledgable/managers/edit_book_manager.dart';
+import 'package:ledgable/managers/book_manager.dart';
+import 'package:ledgable/managers/sort_book_manager.dart';
 
 void main() {
   runApp(const MaterialApp(
-    home: LedgableApp(),
+    home: ledgableApp(),
   ));
 }
 
-class LedgableApp extends StatefulWidget {
-  const LedgableApp({super.key});
+class ledgableApp extends StatefulWidget {
+  const ledgableApp({super.key});
 
   @override
-  LedgableAppState createState() => LedgableAppState();
+  ledgableAppState createState() => ledgableAppState();
 }
 
-class LedgableAppState extends State<LedgableApp> {
+class ledgableAppState extends State<ledgableApp> {
   late Shelf shelf;
   List<String> options = ['Date (Newest)', 'Date (Oldest)', 'Title A-Z', 'Title Z-A', 'Author A-Z', 'Author Z-A'];
   final SortBookManager sortBookManager = SortBookManager();
@@ -99,7 +98,7 @@ class LedgableAppState extends State<LedgableApp> {
     shelf.setSize(width, height);
 
     return MaterialApp(
-      title: 'Ledgable',
+      title: 'ledgable',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -110,7 +109,7 @@ class LedgableAppState extends State<LedgableApp> {
             width: 50, // Adjust width as needed
             height: 50, // Adjust height as needed
             child: Image(
-              image: AssetImage('assets/Ledgable_icon.png'),
+              image: AssetImage('assets/ledgable_icon.png'),
               fit: BoxFit.contain,
             ),
           ),
@@ -135,15 +134,15 @@ class LedgableAppState extends State<LedgableApp> {
 /*
 
 import 'package:flutter/material.dart';
-import 'package:Ledgable/models/book.dart';
-import 'package:Ledgable/models/shelf.dart';
-import 'package:Ledgable/widgets/edit_book_dialog.dart';
+import 'package:ledgable/models/book.dart';
+import 'package:ledgable/models/shelf.dart';
+import 'package:ledgable/widgets/edit_book_dialog.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 >>>>>>> Stashed changes
 
 //Stateless widget does not change, basically the background of the app
-class LedgableApp extends StatelessWidget {
-  const LedgableApp({super.key});
+class ledgableApp extends StatelessWidget {
+  const ledgableApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -157,7 +156,7 @@ class LedgableApp extends StatelessWidget {
     }
 
     return MaterialApp(
-      title: 'Ledgable',
+      title: 'ledgable',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -168,7 +167,7 @@ class LedgableApp extends StatelessWidget {
             width: 50, // Adjust width as needed
             height: 50, // Adjust height as needed
             child: Image(
-              image: AssetImage('assets/Ledgable_icon.png'),
+              image: AssetImage('assets/ledgable_icon.png'),
               fit: BoxFit.contain,
             ),
           ),
@@ -192,7 +191,7 @@ class LedgableApp extends StatelessWidget {
 }
 
 void main() {
-  runApp(const LedgableApp());
+  runApp(const ledgableApp());
 }
 
  */

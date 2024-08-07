@@ -1,5 +1,5 @@
 name: ledgable
-description: "A new Flutter project."
+description: "An app for readers, by readers."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -30,11 +30,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  flutter_colorpicker: ^1.0.3 # Add this line
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -45,7 +46,27 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^3.0.0
+  flutter_lints: ^3.0.2
+  flutter_launcher_icons: "^0.13.1"
+  test: ^1.25.2
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/Ledgable_icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "assets/Ledgable_icon.png"
+    background_color: "#FFFFFF"
+    theme_color: "#FFFFFF"
+  windows:
+    generate: true
+    image_path: "assets/Ledgable_icon.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/Ledgable_icon.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -59,7 +80,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/Ledgable.png
+    - assets/Ledgable_logo.png
     - assets/Ledgable_icon.png
   # To add assets to your application, add an assets section, like this:
   # assets:

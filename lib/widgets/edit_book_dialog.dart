@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:Ledgable/models/book.dart';
+import 'package:ledgable/models/book.dart';
 
 // Dialog widget to edit book details
 class EditBookDialog extends StatefulWidget {
@@ -8,7 +8,8 @@ class EditBookDialog extends StatefulWidget {
   final Book bookData;
   final Function(Book) onDelete;
 
-  const EditBookDialog({required this.onSave, required this.bookData, required this.onDelete, super.key});
+  const EditBookDialog({required this.onSave,
+    required this.bookData, required this.onDelete, super.key});
 
   @override
   EditBookDialogState createState() => EditBookDialogState();
@@ -30,10 +31,24 @@ class EditBookDialogState extends State<EditBookDialog> {
     tempColor = widget.bookData.color;
   }
 
+  void _validateTitle(){
+    setState(() {
+      if (_titleController.text.isEmpty) {
+        _titleError = 'Title cannot be empty';
+      } else if (_titleController.text.length > 60) {
+        _titleError = 'Title may be shortened on display';
+      } else {
+        _titleError = null;
+      }
+    });
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Edit Book'),
+      title: const Text('Book Information'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -46,13 +61,7 @@ class EditBookDialogState extends State<EditBookDialog> {
             ),
             onChanged: (value) {
               setState(() {
-                if (value.isEmpty) {
-                  _titleError = 'Title cannot be empty';
-                } else if (value.length > 57) {
-                  _titleError = 'Title is too long, will be shortened on display';
-                } else {
-                  _titleError = null;
-                }
+                _validateTitle();
               });
             },
           ),
@@ -104,31 +113,38 @@ class EditBookDialogState extends State<EditBookDialog> {
         ),
         TextButton(
           onPressed: () {
-            widget.onSave(
-              _titleController.text,
-              _authorController.text,
-              _summaryController.text,
-              tempColor,
-            );
-            Navigator.of(context).pop();
-          },
-          child: const Text('Save'),
-        ),
-        TextButton(
-          onPressed: () {
             widget.onDelete(widget.bookData);
             Navigator.of(context).pop();
           },
           child: const Text('Delete'),
         ),
+        TextButton(
+          onPressed: () {
+            _validateTitle();
+            if (_titleError == 'Title cannot be empty') {
+              // Do nothing if the title error is present
+              null;
+            } else {
+              // Save the data and navigate back
+              widget.onSave(
+                _titleController.text,
+                _authorController.text,
+                _summaryController.text,
+                tempColor,
+              );
+              Navigator.of(context).pop();
+            }
+          },
+          child: const Text('Save'),
+        ),
+
       ],
     );
   }
 }
 
-
 // Stateful widget for color picker dialog,
-// color picker is accessed via book press, sets the color of book
+// Color picker is used in the edit_book_dialog to set the color of the book UI
 class ColorPickerDialog extends StatefulWidget {
   final Color initialColor;
 
@@ -180,6 +196,3 @@ class ColorPickerDialogState extends State<ColorPickerDialog> {
     );
   }
 }
-
-
-

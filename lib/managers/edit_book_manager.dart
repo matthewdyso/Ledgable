@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:Ledgable/models/book.dart';
-import 'package:Ledgable/widgets/edit_book_dialog.dart';
-import 'package:Ledgable/managers/book_manager.dart';
+import 'package:ledgable/models/book.dart';
+import 'package:ledgable/widgets/edit_book_dialog.dart';
+import 'package:ledgable/managers/book_manager.dart';
 
 class EditBookManager extends BookManager {
   final Function(Book) onDelete;
