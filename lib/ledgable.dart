@@ -74,10 +74,10 @@ class LedgableAppState extends State<LedgableApp> {
   Future<void> _initAsync() async {
     List<String> lines = await getData();
     for (int i = 0; i < lines.length; i += 5) {
-      //DateTime tempDate = DateTime.parse(lines[i+3]);
+      DateTime tempDate = DateTime.parse(lines[i+3]);
       Book tempBook = Book(lines[i], lines[i+1], lines[i+2], DateTime.now());
       String strColor = lines[i+4];
-      Color tempColor = _hexToColor(strColor.substring(8, 16));
+      Color tempColor = _hexToColor(strColor);
       tempBook.setColor(tempColor);
       shelf.addBookWithoutWriting(tempBook);
     }
