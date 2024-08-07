@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:Ledgable/models/book.dart';
+import 'package:ledgable/models/book.dart';
 
 // Dialog widget to edit book details
 class EditBookDialog extends StatefulWidget {
@@ -8,7 +8,8 @@ class EditBookDialog extends StatefulWidget {
   final Book bookData;
   final Function(Book) onDelete;
 
-  const EditBookDialog({required this.onSave, required this.bookData, required this.onDelete, super.key});
+  const EditBookDialog({required this.onSave,
+    required this.bookData, required this.onDelete, super.key});
 
   @override
   EditBookDialogState createState() => EditBookDialogState();

@@ -1,4 +1,4 @@
-import 'package:Ledgable/models/book.dart';
+import 'package:ledgable/models/book.dart';
 
 enum Options { dateNew, dateOld, titleAZ, titleZA, authorAZ, authorZA }
 

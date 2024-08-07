@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:Ledgable/models/book.dart';
-import 'package:Ledgable/models/shelf.dart';
-import 'package:Ledgable/widgets/book_ui.dart';
+import 'package:ledgable/models/book.dart';
+import 'package:ledgable/models/shelf.dart';
+import 'package:ledgable/widgets/book_ui.dart';
 
 // Stateful widget to create the visual representation of a shelf
 class ShelfUI extends StatefulWidget {
@@ -24,7 +24,8 @@ class ShelfUIState extends State<ShelfUI> {
 
   void addBook() {
     setState(() {
-      Book newBook = Book('New Book', 'New Author', 'New Summary', DateTime.now());
+      Book newBook = Book('New Book',
+          'New Author', 'New Summary', DateTime.now());
       shelf.addBook(newBook);
       buildBookUI();
     });
@@ -37,12 +38,6 @@ class ShelfUIState extends State<ShelfUI> {
     });
   }
 
-
-  void sortBooks(int index) {
-    setState(() {
-      shelf.sortClicked(index);
-    });
-  }
 
   // Method to build the UIs for the books on the shelf
   List<BookUI> buildBookUI() {

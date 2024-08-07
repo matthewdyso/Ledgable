@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:Ledgable/models/book.dart';
-import 'edit_book_dialog.dart';
+import 'package:flutter/material.dart';
+import 'package:ledgable/models/book.dart';
+import 'package:ledgable/widgets/edit_book_dialog.dart';
 
 
 /* Creates a stateful widget for creating the visual

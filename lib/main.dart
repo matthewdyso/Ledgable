@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:Ledgable/ledgable.dart';
+import 'package:ledgable/ledgable.dart';
 
 // Main function to run the app
 void main() {

@@ -5,9 +5,14 @@ import 'package:Ledgable/widgets/shelf_ui.dart';
 import 'package:Ledgable/widgets/edit_book_dialog.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
+import 'package:ledgable/managers/add_book_manager.dart';
+import 'package:ledgable/managers/book_manager.dart';
+import 'package:ledgable/managers/edit_book_manager.dart';
+import 'package:ledgable/managers/sort_book_manager.dart';
+import 'package:ledgable/models/book.dart';
+import 'package:ledgable/models/shelf.dart';
+import 'package:ledgable/widgets/shelf_ui.dart';
 
-// List of sorting options
-List<String> options = ['Date (Newest)', 'Date (Oldest)', 'Title A-Z', 'Title Z-A', 'Author A-Z', 'Author Z-A'];
 
 // Main application widget
 class LedgableApp extends StatefulWidget {
@@ -19,6 +24,10 @@ class LedgableApp extends StatefulWidget {
 
 class LedgableAppState extends State<LedgableApp> {
   late Shelf shelf;
+  static const List<String> options = ['Date (Newest)', 'Date (Oldest)',
+    'Title A-Z', 'Title Z-A', 'Author A-Z', 'Author Z-A'];
+
+  final SortBookManager sortBookManager = SortBookManager();
   bool isLoading = true;  // To handle loading state
 
   Future<String> get _localPath async {
@@ -86,30 +95,30 @@ class LedgableAppState extends State<LedgableApp> {
     });
   }
 
-  // Method to handle adding a new book
   void handleAddBook() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return EditBookDialog(
-          onSave: (String title, String author, String summary, Color color) {
-            Book book = Book(title, author, summary, DateTime.now(), color: color);
-            setState(() {
-              shelf.addBook(book);
-            });
-          },
-          bookData: Book('', '', '', DateTime.now()), // Pass an empty book for adding a new book
-          onDelete: (Book book) {}, // No action needed for delete in add mode
-        );
-      },
-    );
+    BookManager bookManager = AddBookManager(shelf);
+    bookManager.manageBook(context, Book('', '', '', DateTime.now()));
   }
 
+  void handleEditBook(Book book) {
+    BookManager bookManager = EditBookManager((Book book) {
+      setState(() {
+        shelf.deleteBook(book);
+      });
+    });
+    bookManager.manageBook(context, book);
+  }
 
-  // Method to create the sort button with menu options
+  void handleSortBooks(int index) {
+    setState(() {
+      sortBookManager.sortBooks(shelf.getBooks(), index);
+    });
+  }
+
   MenuAnchor sortButton() {
     return MenuAnchor(
-      builder: (BuildContext context, MenuController controller, Widget? child) {
+      builder: (BuildContext context, MenuController controller,
+          Widget? child) {
         return IconButton(
           onPressed: () {
             if (controller.isOpen) {
@@ -126,10 +135,7 @@ class LedgableAppState extends State<LedgableApp> {
         6,
             (int index) => MenuItemButton(
           onPressed: () {
-            setState(() {
-              shelf.sortClicked(index);
-              shelf = Shelf()..books = shelf.books;
-            });
+            handleSortBooks(index);
           },
           child: Text(options[index]),
         ),
@@ -140,6 +146,7 @@ class LedgableAppState extends State<LedgableApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Ledgable',
       theme: ThemeData(
         primarySwatch: Colors.blue,

@@ -1,8 +1,8 @@
-import 'package:Ledgable/widgets/shelf_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:Ledgable/models/book.dart';
-import 'package:Ledgable/models/shelf.dart';
+import 'package:ledgable/models/book.dart';
+import 'package:ledgable/models/shelf.dart';
+import 'package:ledgable/widgets/shelf_ui.dart';
 
 void main() {
 
@@ -60,7 +60,8 @@ void main() {
     });
 
     // Test to check if ShelfUI adds a book when add button is pressed
-    testWidgets('ShelfUI should add a book when add button is pressed', (WidgetTester tester) async {
+    testWidgets('ShelfUI should add a book when add button is pressed',
+            (WidgetTester tester) async {
       final shelf = Shelf();
 
       await tester.pumpWidget(MaterialApp(
@@ -68,7 +69,8 @@ void main() {
           body: ShelfUI(shelf),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              shelf.addBook(Book('New Book', 'New Author', 'New Summary', DateTime.now()));
+              shelf.addBook(Book('New Book', 'New Author',
+                  'New Summary', DateTime.now()));
             },
             child: const Icon(Icons.add),
           ),
