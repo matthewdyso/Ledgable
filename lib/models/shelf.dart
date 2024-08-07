@@ -1,11 +1,11 @@
 import 'package:Ledgable/models/book.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 
 Future<String> get _localPath async {
   final directory = await getApplicationDocumentsDirectory();
-
   return directory.path;
 }
 
@@ -14,7 +14,7 @@ Future<File> get _localFile async {
   return File('$path/book_data.txt');
 }
 
-Future<File> writeBook(String _title, String _author, String _summary, DateTime _date, Color _picked) async {
+Future<File> writeBook(String _title, String _author, String _summary, DateTime _date, String _picked) async {
   final file = await _localFile;
 
   // Write the file
@@ -64,7 +64,7 @@ class Shelf {
 
   void addBook(Book book) {
     books.add(book);
-    writeBook(book.title,book.author,book.summary,book.date,book.color);
+    writeBook(book.title,book.author,book.summary,book.date, book.color.toHexString());
   }
 
   void addBookWithoutWriting(Book book) {
