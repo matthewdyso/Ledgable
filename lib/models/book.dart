@@ -11,7 +11,7 @@ class Book {
   Color color;
 
   // Constructor to initialize book properties, accepts 4 arguments
-  Book(this.title, this.author, this.summary, this.date, {this.color = Colors.blueGrey});
+  Book(this.title, this.author, this.summary, this.date, {this.color = const Color.fromRGBO(96, 125, 139, 1)});
 
   // Setter for title
   void setTitle(String newTitle) {
