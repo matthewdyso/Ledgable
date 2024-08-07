@@ -1,8 +1,8 @@
-import 'package:Ledgable/models/book.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:path_provider/path_provider.dart';
 import 'dart:io';
+
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:ledgable/models/book.dart';
+import 'package:path_provider/path_provider.dart';
 
 Future<String> get _localPath async {
   final directory = await getApplicationDocumentsDirectory();
@@ -14,11 +14,13 @@ Future<File> get _localFile async {
   return File('$path/book_data.txt');
 }
 
-Future<File> writeBook(String _title, String _author, String _summary, DateTime _date, String _picked) async {
+Future<File> writeBook(String title, String author,
+    String summary, DateTime date, String picked) async {
   final file = await _localFile;
 
   // Write the file
-  return file.writeAsString('$_title\n$_author\n$_summary\n$_date\n$_picked\n', mode: FileMode.append);
+  return file.writeAsString(
+      '$title\n$author\n$summary\n$date\n$picked\n', mode: FileMode.append);
 }
 
 Future<File> delBook(String name) async {
@@ -49,7 +51,6 @@ Future<File> delBook(String name) async {
   return file;
 }
 
-import 'package:ledgable/models/book.dart';
 
 // Shelf class to hold and manage a collection of books of the same size
 class Shelf {
@@ -61,7 +62,8 @@ class Shelf {
   // Method to add a book to the shelf
   void addBook(Book book) {
     books.add(book);
-    writeBook(book.title,book.author,book.summary,book.date, book.color.toHexString());
+    writeBook(book.title,book.author,book.summary,
+        book.date, book.color.toHexString());
   }
 
   void addBookWithoutWriting(Book book) {

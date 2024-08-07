@@ -1,10 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:Ledgable/models/book.dart';
-import 'package:Ledgable/models/shelf.dart';
-import 'package:Ledgable/widgets/shelf_ui.dart';
-import 'package:Ledgable/widgets/edit_book_dialog.dart';
-import 'package:path_provider/path_provider.dart';
 import 'dart:io';
+
+import 'package:flutter/material.dart';
 import 'package:ledgable/managers/add_book_manager.dart';
 import 'package:ledgable/managers/book_manager.dart';
 import 'package:ledgable/managers/edit_book_manager.dart';
@@ -12,6 +8,7 @@ import 'package:ledgable/managers/sort_book_manager.dart';
 import 'package:ledgable/models/book.dart';
 import 'package:ledgable/models/shelf.dart';
 import 'package:ledgable/widgets/shelf_ui.dart';
+import 'package:path_provider/path_provider.dart';
 
 
 // Main application widget
@@ -45,7 +42,7 @@ class LedgableAppState extends State<LedgableApp> {
   Color _hexToColor(String hexString) {
     hexString = hexString.toUpperCase().replaceAll("#", "");
     if (hexString.length == 6) {
-      hexString = "FF" + hexString; // Add alpha if not provided
+      hexString = "FF$hexString"; // Add alpha if not provided
     }
     return Color(int.parse(hexString, radix: 16));
   }
@@ -67,24 +64,13 @@ class LedgableAppState extends State<LedgableApp> {
     super.initState();
     shelf = Shelf();
     _initAsync();
-    // Create sample books, maximum word limit is 57 characters
-    //Book harryPotter = Book('Harry Potter and the Order of the Phoenix, make this really long for testing', 'J. K. Rowling', 'He said calmly', DateTime.now());
-    //Book got = Book('Game of Thrones', 'George RR Martin', 'Bilbo Baggins', DateTime.now());
-    //Book idk = Book('IDK anymore', 'J. K. Rowling', 'IDK man this aint a book', DateTime.now());
-    //Book random = Book('Random Book', 'J. K. Rowling', 'probability of me being a book = 0', DateTime.now());
-
-    // Initialize shelf and add sample books
-    //shelf.addBook(harryPotter);
-    //shelf.addBook(got);
-    //shelf.addBook(idk);
-    //shelf.addBook(random);
   }
 
   Future<void> _initAsync() async {
     List<String> lines = await getData();
     for (int i = 0; i < lines.length; i += 5) {
       DateTime tempDate = DateTime.parse(lines[i+3]);
-      Book tempBook = Book(lines[i], lines[i+1], lines[i+2], DateTime.now());
+      Book tempBook = Book(lines[i], lines[i+1], lines[i+2], tempDate);
       String strColor = lines[i+4];
       Color tempColor = _hexToColor(strColor);
       tempBook.setColor(tempColor);
