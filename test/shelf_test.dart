@@ -3,8 +3,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ledgable/models/book.dart';
 import 'package:ledgable/models/shelf.dart';
 import 'package:ledgable/widgets/shelf_ui.dart';
+import 'package:flutter/services.dart';
+
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  const MethodChannel channel = MethodChannel('plugins.flutter.io/path_provider');
+  channel.setMockMethodCallHandler((MethodCall methodCall) async {
+    return ".";
+  });
   // Unit tests
   group('Shelf', () {
     // Test to check if Shelf adds and deletes books correctly
@@ -43,6 +50,9 @@ void main() {
     });
   });
 
+
+
+
   // Widget tests
   group('ShelfUI', () {
     // Test to check if ShelfUI displays books
@@ -56,7 +66,7 @@ void main() {
 
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
-          body: ShelfUI(shelf, onEditBook: (Book ) {  },),
+          body: ShelfUI(shelf, onEditBook: (Book book) {},),
         ),
       ));
 
@@ -85,7 +95,7 @@ void main() {
                       ),
                     ],
                   ),
-                  body: ShelfUI(shelf, onEditBook: (Book ) {  },),
+                  body: ShelfUI(shelf, onEditBook: (Book book) {}),
                 );
               },
             ),

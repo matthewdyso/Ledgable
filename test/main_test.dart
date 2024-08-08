@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ledgable/models/book.dart';
 import 'package:ledgable/models/shelf.dart';
 import 'package:ledgable/widgets/shelf_ui.dart';
 
 void main() {
-
+  TestWidgetsFlutterBinding.ensureInitialized();
+  const MethodChannel channel = MethodChannel('plugins.flutter.io/path_provider');
+  channel.setMockMethodCallHandler((MethodCall methodCall) async {
+    return ".";
+  });
   //unit tests
   group('Shelf', () {
     // Test to check if Shelf adds and deletes books correctly
@@ -39,7 +44,8 @@ void main() {
 
 
   //widget tests
-  group('ShelfUI', () {
+  group('ShelfUI', ()
+  {
     // Test to check if ShelfUI displays books
     testWidgets('ShelfUI should display books', (WidgetTester tester) async {
       final shelf = Shelf();
@@ -51,36 +57,12 @@ void main() {
 
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
-          body: ShelfUI(shelf, onEditBook: (Book ) {  },),
+          body: ShelfUI(shelf, onEditBook: (Book book) {}),
         ),
       ));
 
       expect(find.text('Title1'), findsOneWidget);
       expect(find.text('Title2'), findsOneWidget);
     });
-
-    // Test to check if ShelfUI adds a book when add button is pressed
-    testWidgets('ShelfUI should add a book when add button is pressed',
-            (WidgetTester tester) async {
-          final shelf = Shelf();
-
-          await tester.pumpWidget(MaterialApp(
-            home: Scaffold(
-              body: ShelfUI(shelf, onEditBook: (Book ) {  },),
-              floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  shelf.addBook(Book('New Book', 'New Author',
-                      'New Summary', DateTime.now()));
-                },
-                child: const Icon(Icons.add),
-              ),
-            ),
-          ));
-
-          await tester.tap(find.byIcon(Icons.add));
-          await tester.pump();
-
-          expect(find.text('New Book'), findsOneWidget);
-        });
   });
 }

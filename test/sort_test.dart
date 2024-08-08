@@ -2,8 +2,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ledgable/managers/sort_book_manager.dart';
 import 'package:ledgable/models/book.dart';
 import 'package:ledgable/models/shelf.dart';
+import 'package:flutter/services.dart';
+
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  const MethodChannel channel = MethodChannel('plugins.flutter.io/path_provider');
+  channel.setMockMethodCallHandler((MethodCall methodCall) async {
+    return ".";
+  });
   group('Shelf', () {
     test('sorts books by title', () {
       Shelf shelf = Shelf();
