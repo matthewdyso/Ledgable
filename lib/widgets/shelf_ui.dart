@@ -6,8 +6,9 @@ import 'package:ledgable/widgets/book_ui.dart';
 // Stateful widget to create the visual representation of a shelf
 class ShelfUI extends StatefulWidget {
   final Shelf shelf;
+  final Function(Book) onEditBook;
 
-  const ShelfUI(this.shelf, {super.key});
+  const ShelfUI(this.shelf, {required this.onEditBook, super.key});
 
   @override
   ShelfUIState createState() => ShelfUIState();

@@ -120,7 +120,7 @@ class LedgableAppState extends State<LedgableApp> {
           ],
         ),
         body: Center(
-          child: ShelfUI(shelf),
+          child: ShelfUI(shelf, onEditBook: handleEditBook),
         ),
       ),
     );
