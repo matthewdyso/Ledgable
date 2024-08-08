@@ -9,6 +9,7 @@ import 'package:ledgable/models/book.dart';
 import 'package:ledgable/models/shelf.dart';
 import 'package:ledgable/widgets/shelf_ui.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:ledgable/widgets/edit_book_dialog.dart';
 
 
 // Main application widget
@@ -82,8 +83,21 @@ class LedgableAppState extends State<LedgableApp> {
   }
 
   void handleAddBook() {
-    BookManager bookManager = AddBookManager(shelf);
-    bookManager.manageBook(context, Book('', '', '', DateTime.now()));
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return EditBookDialog(
+          onSave: (String title, String author, String summary, Color color) {
+            Book book = Book(title, author, summary, DateTime.now(), color: color);
+            setState(() {
+              shelf.addBook(book);
+            });
+          },
+          bookData: Book('', '', '', DateTime.now()), // Pass an empty book for adding a new book
+          onDelete: (Book book) {}, // No action needed for delete in add mode
+        );
+      },
+    );
   }
 
   void handleEditBook(Book book) {
