@@ -62,25 +62,25 @@ void main() {
     // Test to check if ShelfUI adds a book when add button is pressed
     testWidgets('ShelfUI should add a book when add button is pressed',
             (WidgetTester tester) async {
-      final shelf = Shelf();
+          final shelf = Shelf();
 
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: ShelfUI(shelf, onEditBook: (Book ) {  },),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              shelf.addBook(Book('New Book', 'New Author',
-                  'New Summary', DateTime.now()));
-            },
-            child: const Icon(Icons.add),
-          ),
-        ),
-      ));
+          await tester.pumpWidget(MaterialApp(
+            home: Scaffold(
+              body: ShelfUI(shelf, onEditBook: (Book ) {  },),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  shelf.addBook(Book('New Book', 'New Author',
+                      'New Summary', DateTime.now()));
+                },
+                child: const Icon(Icons.add),
+              ),
+            ),
+          ));
 
-      await tester.tap(find.byIcon(Icons.add));
-      await tester.pump();
+          await tester.tap(find.byIcon(Icons.add));
+          await tester.pump();
 
-      expect(find.text('New Book'), findsOneWidget);
-    });
+          expect(find.text('New Book'), findsOneWidget);
+        });
   });
 }

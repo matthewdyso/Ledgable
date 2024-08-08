@@ -67,34 +67,34 @@ void main() {
     // Test to check if ShelfUI adds a book when add button is pressed
     testWidgets('ShelfUI should add a book when add button is pressed',
             (WidgetTester tester) async {
-      final shelf = Shelf();
+          final shelf = Shelf();
 
-      await tester.pumpWidget(MaterialApp(
-        home: StatefulBuilder(
-          builder: (BuildContext context, StateSetter setState) {
-            return Scaffold(
-              appBar: AppBar(
-                actions: [
-                  IconButton(
-                    onPressed: () {
-                      setState(() {
-                        shelf.addBook(Book('New Book', '', '', DateTime.now()));
-                      });
-                    },
-                    icon: const Icon(Icons.add),
+          await tester.pumpWidget(MaterialApp(
+            home: StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+                return Scaffold(
+                  appBar: AppBar(
+                    actions: [
+                      IconButton(
+                        onPressed: () {
+                          setState(() {
+                            shelf.addBook(Book('New Book', '', '', DateTime.now()));
+                          });
+                        },
+                        icon: const Icon(Icons.add),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              body: ShelfUI(shelf, onEditBook: (Book ) {  },),
-            );
-          },
-        ),
-      ));
+                  body: ShelfUI(shelf, onEditBook: (Book ) {  },),
+                );
+              },
+            ),
+          ));
 
-      await tester.tap(find.byIcon(Icons.add));
-      await tester.pump();
+          await tester.tap(find.byIcon(Icons.add));
+          await tester.pump();
 
-      expect(find.text('New Book'), findsOneWidget);
-    });
+          expect(find.text('New Book'), findsOneWidget);
+        });
   });
 }
