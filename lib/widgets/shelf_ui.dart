@@ -64,7 +64,7 @@ class ShelfUIState extends State<ShelfUI> {
         crossAxisCount: 4,
         childAspectRatio: 0.7,
         crossAxisSpacing: 15.0,
-        mainAxisSpacing: 40,
+        mainAxisSpacing: 20,
         children: buildBookUI(),
       ),
     );
