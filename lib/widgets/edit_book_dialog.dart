@@ -35,7 +35,7 @@ class EditBookDialogState extends State<EditBookDialog> {
     setState(() {
       if (_titleController.text.isEmpty) {
         _titleError = 'Title cannot be empty';
-      } else if (_titleController.text.length >= 60) {
+      } else if (_titleController.text.length >= 50) {
         _titleError = 'Title may be shortened on display';
       } else {
         _titleError = null;
