@@ -7,10 +7,16 @@ import 'package:ledgable/widgets/shelf_ui.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+
+  //Creates channel for path_provider
   const MethodChannel channel = MethodChannel('plugins.flutter.io/path_provider');
-  channel.setMockMethodCallHandler((MethodCall methodCall) async {
+
+  //Mock channel
+  TestDefaultBinaryMessengerBinding.instance!.defaultBinaryMessenger
+      .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
     return ".";
   });
+
   //unit tests
   group('Shelf', () {
     // Test to check if Shelf adds and deletes books correctly

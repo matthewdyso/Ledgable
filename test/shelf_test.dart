@@ -8,8 +8,13 @@ import 'package:flutter/services.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+
+  //Creates channel for path_provider
   const MethodChannel channel = MethodChannel('plugins.flutter.io/path_provider');
-  channel.setMockMethodCallHandler((MethodCall methodCall) async {
+
+  //Mock channel
+  TestDefaultBinaryMessengerBinding.instance!.defaultBinaryMessenger
+      .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
     return ".";
   });
   // Unit tests
