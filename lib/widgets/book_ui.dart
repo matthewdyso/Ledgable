@@ -80,15 +80,19 @@ class _BookUIState extends State<BookUI> {
             ),
             child: Align(
               alignment: const Alignment(0.0, -0.7),
-              child: AutoSizeText(
-                minFontSize: 12,
-                maxLines: 5,
-                bookData.title,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  overflow: TextOverflow.ellipsis,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
+              child: Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: AutoSizeText(
+                  wrapWords: false,
+                  minFontSize: 12,
+                  maxLines: 5,
+                  bookData.title,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    overflow: TextOverflow.ellipsis,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),

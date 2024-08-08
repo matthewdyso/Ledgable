@@ -6,8 +6,9 @@ import 'package:ledgable/widgets/book_ui.dart';
 // Stateful widget to create the visual representation of a shelf
 class ShelfUI extends StatefulWidget {
   final Shelf shelf;
+  final Function(Book) onEditBook;
 
-  const ShelfUI(this.shelf, {super.key});
+  const ShelfUI(this.shelf, {required this.onEditBook, super.key});
 
   @override
   ShelfUIState createState() => ShelfUIState();
@@ -59,10 +60,10 @@ class ShelfUIState extends State<ShelfUI> {
         title: const Text('Bookshelf'),
       ),
       body: GridView.count(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(15),
         crossAxisCount: 4,
         childAspectRatio: 0.7,
-        crossAxisSpacing: 20.0,
+        crossAxisSpacing: 15.0,
         mainAxisSpacing: 40,
         children: buildBookUI(),
       ),
