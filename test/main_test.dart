@@ -51,7 +51,7 @@ void main() {
 
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
-          body: ShelfUI(shelf),
+          body: ShelfUI(shelf, onEditBook: (Book ) {  },),
         ),
       ));
 
@@ -66,7 +66,7 @@ void main() {
 
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
-          body: ShelfUI(shelf),
+          body: ShelfUI(shelf, onEditBook: (Book ) {  },),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
               shelf.addBook(Book('New Book', 'New Author',

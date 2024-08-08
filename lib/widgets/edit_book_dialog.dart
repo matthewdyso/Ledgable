@@ -31,16 +31,17 @@ class EditBookDialogState extends State<EditBookDialog> {
     tempColor = widget.bookData.color;
   }
 
-  void _validateTitle(){
+  String? _validateTitle(){
     setState(() {
       if (_titleController.text.isEmpty) {
         _titleError = 'Title cannot be empty';
-      } else if (_titleController.text.length > 60) {
+      } else if (_titleController.text.length >= 60) {
         _titleError = 'Title may be shortened on display';
       } else {
         _titleError = null;
       }
     });
+    return _titleError;
 
   }
 
@@ -120,8 +121,7 @@ class EditBookDialogState extends State<EditBookDialog> {
         ),
         TextButton(
           onPressed: () {
-            _validateTitle();
-            if (_titleError == 'Title cannot be empty') {
+            if (_validateTitle() == 'Title cannot be empty') {
               // Do nothing if the title error is present
               null;
             } else {
