@@ -56,7 +56,7 @@ void main() {
 
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
-          body: ShelfUI(shelf),
+          body: ShelfUI(shelf, onEditBook: (Book ) {  },),
         ),
       ));
 
@@ -85,7 +85,7 @@ void main() {
                   ),
                 ],
               ),
-              body: ShelfUI(shelf),
+              body: ShelfUI(shelf, onEditBook: (Book ) {  },),
             );
           },
         ),

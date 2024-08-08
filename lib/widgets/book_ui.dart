@@ -1,8 +1,9 @@
+import 'dart:ui';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:ledgable/models/book.dart';
 import 'package:ledgable/widgets/edit_book_dialog.dart';
-
 
 /* Creates a stateful widget for creating the visual
 * book. Accepts a book, and coordinates to place the book.
@@ -25,11 +26,15 @@ class BookUI extends StatefulWidget {
 * book and position.*/
 class _BookUIState extends State<BookUI> {
   late Book bookData;
+  late Color textColor;
 
   @override
   void initState() {
     super.initState();
     bookData = widget.bookData;
+    print(bookData.color.computeLuminance());
+    textColor = bookData.color.computeLuminance() > 0.18 ?
+    Colors.black : Colors.white;
   }
 
   // Function to handle book press and show dialog to edit book properties
@@ -44,6 +49,8 @@ class _BookUIState extends State<BookUI> {
               bookData.author = author;
               bookData.summary = summary;
               bookData.color = color;
+              textColor = bookData.color.computeLuminance() > 0.18 ?
+                Colors.black : Colors.white;
             });
           },
           bookData: bookData,
@@ -88,9 +95,9 @@ class _BookUIState extends State<BookUI> {
                   maxLines: 5,
                   bookData.title,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: TextStyle(
                     overflow: TextOverflow.ellipsis,
-                    color: Colors.black,
+                    color: textColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
