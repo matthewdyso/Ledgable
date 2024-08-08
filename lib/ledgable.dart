@@ -9,7 +9,6 @@ import 'package:ledgable/models/book.dart';
 import 'package:ledgable/models/shelf.dart';
 import 'package:ledgable/widgets/shelf_ui.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:ledgable/widgets/edit_book_dialog.dart';
 
 
 // Main application widget
@@ -83,7 +82,9 @@ class LedgableAppState extends State<LedgableApp> {
   }
 
   void handleAddBook() {
-    BookManager bookManager = AddBookManager(shelf);
+    BookManager bookManager = AddBookManager(shelf, () {
+      setState(() {});
+    });
     bookManager.manageBook(context, Book('', '', '', DateTime.now()));
   }
 
