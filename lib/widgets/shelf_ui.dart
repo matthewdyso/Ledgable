@@ -55,18 +55,13 @@ class ShelfUIState extends State<ShelfUI> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Bookshelf'),
-      ),
-      body: GridView.count(
-        padding: const EdgeInsets.all(20),
-        crossAxisCount: 4,
-        childAspectRatio: 0.7,
-        crossAxisSpacing: 20.0,
-        mainAxisSpacing: 40,
-        children: buildBookUI(),
-      ),
+    return GridView.count(
+      padding: const EdgeInsets.all(15),
+      crossAxisCount: 4,
+      childAspectRatio: 0.7,
+      crossAxisSpacing: 15.0,
+      mainAxisSpacing: 20,
+      children: buildBookUI(),
     );
   }
 }

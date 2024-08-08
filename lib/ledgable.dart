@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:ledgable/managers/add_book_manager.dart';
 import 'package:ledgable/managers/book_manager.dart';
@@ -6,6 +8,8 @@ import 'package:ledgable/managers/sort_book_manager.dart';
 import 'package:ledgable/models/book.dart';
 import 'package:ledgable/models/shelf.dart';
 import 'package:ledgable/widgets/shelf_ui.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:ledgable/widgets/edit_book_dialog.dart';
 
 
 // Main application widget
@@ -20,32 +24,66 @@ class LedgableAppState extends State<LedgableApp> {
   late Shelf shelf;
   static const List<String> options = ['Date (Newest)', 'Date (Oldest)',
     'Title A-Z', 'Title Z-A', 'Author A-Z', 'Author Z-A'];
+
   final SortBookManager sortBookManager = SortBookManager();
+  bool isLoading = true;  // To handle loading state
+
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+
+    return directory.path;
+  }
+
+  Future<File> get _localFile async {
+    final path = await _localPath;
+    return File('$path/book_data.txt');
+  }
+
+  // Function to convert hex string to Color
+  Color _hexToColor(String hexString) {
+    hexString = hexString.toUpperCase().replaceAll("#", "");
+    if (hexString.length == 6) {
+      hexString = "FF$hexString"; // Add alpha if not provided
+    }
+    return Color(int.parse(hexString, radix: 16));
+  }
+  Future<List<String>> getData() async {
+    print("### retreiving data... ###");
+    final file = await _localFile;
+
+    // Write the file
+    //String date = "2024-08-07 02:11:50.609903";
+    //String color = Color.fromRGBO(100, 100, 100, 2) as String;
+    //file.writeAsString('TheMeow\nkitty\nbest book ever\ndate\ncolor\n', mode: FileMode.append);
+    Future<List<String>> futureLines = file.readAsLines();
+    List<String> lines = await futureLines;
+    return lines;
+  }
 
   @override
   void initState() {
     super.initState();
-
-    Book harryPotter = Book('Harry Potter and the Order of the Phoenix '
-        'And the buss do', 'J. K. Rowling', 'He said calmly', DateTime.now());
-    Book got = Book('Game of Thrones', 'George RR Martin', 'Bilbo Baggins',
-        DateTime.now());
-    Book idk = Book('IDK anymore', 'J. K. Rowling', 'IDK man this aint a book',
-        DateTime.now());
-    Book random = Book('Random Book', 'J. K. Rowling',
-        'probability of me being a book = 0', DateTime.now());
-
     shelf = Shelf();
-    shelf.addBook(harryPotter);
-    shelf.addBook(got);
-    shelf.addBook(idk);
-    shelf.addBook(random);
+    _initAsync();
+  }
+
+  Future<void> _initAsync() async {
+    List<String> lines = await getData();
+    for (int i = 0; i < lines.length; i += 5) {
+      DateTime tempDate = DateTime.parse(lines[i+3]);
+      Book tempBook = Book(lines[i], lines[i+1], lines[i+2], tempDate);
+      String strColor = lines[i+4];
+      Color tempColor = _hexToColor(strColor);
+      tempBook.setColor(tempColor);
+      shelf.addBookWithoutWriting(tempBook);
+    }
+    setState(() {
+      isLoading = false;  // Update the loading state
+    });
   }
 
   void handleAddBook() {
-    BookManager bookManager = AddBookManager(shelf, () {
-      setState(() {});
-    });
+    BookManager bookManager = AddBookManager(shelf);
     bookManager.manageBook(context, Book('', '', '', DateTime.now()));
   }
 
@@ -94,7 +132,6 @@ class LedgableAppState extends State<LedgableApp> {
 
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Ledgable',
@@ -122,7 +159,7 @@ class LedgableAppState extends State<LedgableApp> {
           ],
         ),
         body: Center(
-          child: ShelfUI(shelf, onEditBook: handleEditBook),
+          child: ShelfUI(shelf, onEditBook: handleEditBook,),
         ),
       ),
     );

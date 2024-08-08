@@ -39,8 +39,7 @@ void main() {
 
 
   //widget tests
-  group('ShelfUI', ()
-  {
+  group('ShelfUI', () {
     // Test to check if ShelfUI displays books
     testWidgets('ShelfUI should display books', (WidgetTester tester) async {
       final shelf = Shelf();
@@ -52,7 +51,7 @@ void main() {
 
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
-          body: ShelfUI(shelf, onEditBook: (Book book) {}),
+          body: ShelfUI(shelf, onEditBook: (Book ) {  },),
         ),
       ));
 
@@ -67,10 +66,11 @@ void main() {
 
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
-          body: ShelfUI(shelf, onEditBook: (Book book) {}),
+          body: ShelfUI(shelf, onEditBook: (Book ) {  },),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              shelf.addBook(Book('New Book', 'New Author', 'New Summary', DateTime.now()));
+              shelf.addBook(Book('New Book', 'New Author',
+                  'New Summary', DateTime.now()));
             },
             child: const Icon(Icons.add),
           ),
@@ -78,7 +78,7 @@ void main() {
       ));
 
       await tester.tap(find.byIcon(Icons.add));
-      await tester.pump(); // Ensure the widget tree is rebuilt
+      await tester.pump();
 
       expect(find.text('New Book'), findsOneWidget);
     });

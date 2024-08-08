@@ -43,9 +43,6 @@ void main() {
     });
   });
 
-
-
-
   // Widget tests
   group('ShelfUI', () {
     // Test to check if ShelfUI displays books
@@ -59,7 +56,7 @@ void main() {
 
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
-          body: ShelfUI(shelf, onEditBook: (Book book) {},),
+          body: ShelfUI(shelf, onEditBook: (Book ) {  },),
         ),
       ));
 
@@ -88,7 +85,7 @@ void main() {
                   ),
                 ],
               ),
-              body: ShelfUI(shelf, onEditBook: (Book book) {}),
+              body: ShelfUI(shelf, onEditBook: (Book ) {  },),
             );
           },
         ),
