@@ -43,6 +43,9 @@ void main() {
     });
   });
 
+
+
+
   // Widget tests
   group('ShelfUI', () {
     // Test to check if ShelfUI displays books
@@ -56,10 +59,7 @@ void main() {
 
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
-          body: ShelfUI(
-            shelf,
-            onEditBook: (Book book) {},
-          ),
+          body: ShelfUI(shelf, onEditBook: (Book book) {},),
         ),
       ));
 
@@ -73,18 +73,24 @@ void main() {
       final shelf = Shelf();
 
       await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: ShelfUI(
-            shelf,
-            onEditBook: (Book book) {},
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              shelf.addBook(Book('New Book', 'New Author', 'New Summary',
-                  DateTime.now()));
-            },
-            child: const Icon(Icons.add),
-          ),
+        home: StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Scaffold(
+              appBar: AppBar(
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        shelf.addBook(Book('New Book', '', '', DateTime.now()));
+                      });
+                    },
+                    icon: const Icon(Icons.add),
+                  ),
+                ],
+              ),
+              body: ShelfUI(shelf, onEditBook: (Book book) {}),
+            );
+          },
         ),
       ));
 
