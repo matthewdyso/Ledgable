@@ -26,8 +26,8 @@ class LedgableAppState extends State<LedgableApp> {
   void initState() {
     super.initState();
 
-    Book harryPotter = Book('Harry Potter and the Order of the Phoenix '
-        'And the buss do', 'J. K. Rowling', 'He said calmly', DateTime.now());
+    Book harryPotter = Book('Harry Potter and the Order of the Phoenix'
+        ' And the buss do', 'J. K. Rowling', 'He said calmly', DateTime.now());
     Book got = Book('Game of Thrones', 'George RR Martin', 'Bilbo Baggins',
         DateTime.now());
     Book idk = Book('IDK anymore', 'J. K. Rowling', 'IDK man this aint a book',

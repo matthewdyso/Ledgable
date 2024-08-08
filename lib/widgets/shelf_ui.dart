@@ -60,10 +60,10 @@ class ShelfUIState extends State<ShelfUI> {
         title: const Text('Bookshelf'),
       ),
       body: GridView.count(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(15),
         crossAxisCount: 4,
         childAspectRatio: 0.7,
-        crossAxisSpacing: 20.0,
+        crossAxisSpacing: 15.0,
         mainAxisSpacing: 40,
         children: buildBookUI(),
       ),
