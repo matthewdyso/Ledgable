@@ -1,28 +1,28 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
+import 'package:ledgable/managers/add_book_manager.dart';
+import 'package:ledgable/managers/book_manager.dart';
+import 'package:ledgable/managers/edit_book_manager.dart';
+import 'package:ledgable/managers/sort_book_manager.dart';
 import 'package:ledgable/models/book.dart';
 import 'package:ledgable/models/shelf.dart';
 import 'package:ledgable/widgets/shelf_ui.dart';
-import 'package:ledgable/managers/add_book_manager.dart';
-import 'package:ledgable/managers/edit_book_manager.dart';
-import 'package:ledgable/managers/book_manager.dart';
-import 'package:ledgable/managers/sort_book_manager.dart';
 
 void main() {
   runApp(const MaterialApp(
-    home: ledgableApp(),
+    home: LedgableApp(),
   ));
 }
 
-class ledgableApp extends StatefulWidget {
-  const ledgableApp({super.key});
+class LedgableApp extends StatefulWidget {
+  const LedgableApp({super.key});
 
   @override
-  ledgableAppState createState() => ledgableAppState();
+  LedgableAppState createState() => LedgableAppState();
 }
 
-class ledgableAppState extends State<ledgableApp> {
+class LedgableAppState extends State<LedgableApp> {
   late Shelf shelf;
   List<String> options = ['Date (Newest)', 'Date (Oldest)', 'Title A-Z', 'Title Z-A', 'Author A-Z', 'Author Z-A'];
   final SortBookManager sortBookManager = SortBookManager();
@@ -98,7 +98,7 @@ class ledgableAppState extends State<ledgableApp> {
     shelf.setSize(width, height);
 
     return MaterialApp(
-      title: 'ledgable',
+      title: 'Ledgable',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -109,7 +109,7 @@ class ledgableAppState extends State<ledgableApp> {
             width: 50, // Adjust width as needed
             height: 50, // Adjust height as needed
             child: Image(
-              image: AssetImage('assets/ledgable_icon.png'),
+              image: AssetImage('assets/Ledgable_icon.png'),
               fit: BoxFit.contain,
             ),
           ),
@@ -129,69 +129,3 @@ class ledgableAppState extends State<ledgableApp> {
     );
   }
 }
-
-
-/*
-
-import 'package:flutter/material.dart';
-import 'package:ledgable/models/book.dart';
-import 'package:ledgable/models/shelf.dart';
-import 'package:ledgable/widgets/edit_book_dialog.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
->>>>>>> Stashed changes
-
-//Stateless widget does not change, basically the background of the app
-class ledgableApp extends StatelessWidget {
-  const ledgableApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    Book harryPotter = Book('Harry Potter and the Order of the Phoenix', 'J. K. Rowling', 'He said calmly');
-    Book got = Book('Game of Thrones', 'George RR Martin', 'Bilbo Baggins');
-    Book idk = Book('IDK anymore', 'J. K. Rowling', 'IDK man this aint a book');
-    Book random = Book('Random Book', 'J. K. Rowling', 'probability of me being a book = 0');
-
-    void handleBookPress(Book book){
-      print(book.summary);
-    }
-
-    return MaterialApp(
-      title: 'ledgable',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const SizedBox(
-            width: 50, // Adjust width as needed
-            height: 50, // Adjust height as needed
-            child: Image(
-              image: AssetImage('assets/ledgable_icon.png'),
-              fit: BoxFit.contain,
-            ),
-          ),
-        ),
-        body: Center(
-          child: Stack(
-            children: [
-              // x increments by values of 60
-              BookUI(harryPotter, 5, 100, onPress: () => handleBookPress(harryPotter)),
-              BookUI(got, 65, 100, onPress: () => handleBookPress(got)),
-              BookUI(idk, 125, 100, onPress: () => handleBookPress(idk)),
-              BookUI(random, 185, 100, onPress: () => handleBookPress(random)),
-              BookUI(harryPotter, 245, 100, onPress: () => handleBookPress(harryPotter)),
-              BookUI(harryPotter, 305, 100, onPress: () => handleBookPress(harryPotter)),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-void main() {
-  runApp(const ledgableApp());
-}
-
- */
