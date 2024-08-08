@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ledgable/models/book.dart';
 import 'package:ledgable/models/shelf.dart';
 import 'package:ledgable/widgets/shelf_ui.dart';
-import 'package:flutter/services.dart';
 
 
 void main() {
@@ -13,7 +13,7 @@ void main() {
   const MethodChannel channel = MethodChannel('plugins.flutter.io/path_provider');
 
   //Mock channel
-  TestDefaultBinaryMessengerBinding.instance!.defaultBinaryMessenger
+  TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
       .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
     return ".";
   });
@@ -93,7 +93,8 @@ void main() {
                       IconButton(
                         onPressed: () {
                           setState(() {
-                            shelf.addBook(Book('New Book', '', '', DateTime.now()));
+                            shelf.addBook(Book('New Book', '', '',
+                                DateTime.now()));
                           });
                         },
                         icon: const Icon(Icons.add),

@@ -1,8 +1,8 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ledgable/managers/sort_book_manager.dart';
 import 'package:ledgable/models/book.dart';
 import 'package:ledgable/models/shelf.dart';
-import 'package:flutter/services.dart';
 
 
 void main() {
@@ -12,7 +12,7 @@ void main() {
   const MethodChannel channel = MethodChannel('plugins.flutter.io/path_provider');
 
   //Mock channel
-  TestDefaultBinaryMessengerBinding.instance!.defaultBinaryMessenger
+  TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
       .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
     return ".";
   });

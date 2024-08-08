@@ -12,7 +12,7 @@ void main() {
   const MethodChannel channel = MethodChannel('plugins.flutter.io/path_provider');
 
   //Mock channel
-  TestDefaultBinaryMessengerBinding.instance!.defaultBinaryMessenger
+  TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
       .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
     return ".";
   });
