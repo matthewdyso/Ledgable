@@ -43,7 +43,9 @@ class LedgableAppState extends State<LedgableApp> {
   }
 
   void handleAddBook() {
-    BookManager bookManager = AddBookManager(shelf);
+    BookManager bookManager = AddBookManager(shelf, () {
+      setState(() {});
+    });
     bookManager.manageBook(context, Book('', '', '', DateTime.now()));
   }
 

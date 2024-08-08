@@ -6,8 +6,9 @@ import 'package:ledgable/widgets/edit_book_dialog.dart';
 
 class AddBookManager extends BookManager {
   final Shelf shelf;
+  final Function() onBookAdded;
 
-  AddBookManager(this.shelf);
+  AddBookManager(this.shelf, this.onBookAdded);
 
   @override
   void manageBook(BuildContext context, Book book) {
@@ -19,6 +20,7 @@ class AddBookManager extends BookManager {
             Book newBook = Book(title, author, summary, DateTime.now(),
                 color: color);
             shelf.addBook(newBook);
+            onBookAdded(); // Call the callback to update the UI
           },
           bookData: book,
           onDelete: (Book book) {},
