@@ -14,6 +14,7 @@ Future<File> get _localFile async {
   return File('$path/book_data.txt');
 }
 
+// Writes book to book_data.txt
 Future<File> writeBook(String title, String author,
     String summary, DateTime date, String picked) async {
   final file = await _localFile;
@@ -23,6 +24,7 @@ Future<File> writeBook(String title, String author,
       '$title\n$author\n$summary\n$date\n$picked\n', mode: FileMode.append);
 }
 
+// Deletes book from book_data.txt
 Future<File> delBook(String name) async {
   bool flag = false;
   final file = await _localFile;
@@ -31,11 +33,9 @@ Future<File> delBook(String name) async {
   // Remove the book details from the list of lines
   for (int i = 0; i < lines.length; i += 5) {
     String titleLine = lines[i];
-    //print("does $name == $titleLine?\n");
     if (name == titleLine) {
       // Remove the book details (4 lines)
       lines.removeRange(i, i + 5);
-      //print("Deleted $name\n");
       flag = true;
       break;
     }
@@ -44,10 +44,7 @@ Future<File> delBook(String name) async {
     // Rewrite the file with the remaining lines
     final newContents = lines.join('\n') + (lines.isNotEmpty ? '\n' : '');
     await file.writeAsString(newContents);
-    //print("file will now be:\n$newContents");
   }
-  //file.writeAsString("");
-  //print("Done...\n");
   return file;
 }
 

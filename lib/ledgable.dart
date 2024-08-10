@@ -28,12 +28,14 @@ class LedgableAppState extends State<LedgableApp> {
   final SortBookManager sortBookManager = SortBookManager();
   bool isLoading = true;  // To handle loading state
 
+  // Function that returns document directory path
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
 
     return directory.path;
   }
 
+  // Function that returns reference to book_data.txt file
   Future<File> get _localFile async {
     final path = await _localPath;
     return File('$path/book_data.txt');
@@ -47,19 +49,16 @@ class LedgableAppState extends State<LedgableApp> {
     }
     return Color(int.parse(hexString, radix: 16));
   }
-  Future<List<String>> getData() async {
-    print("### retreiving data... ###");
-    final file = await _localFile;
 
-    // Write the file
-    //String date = "2024-08-07 02:11:50.609903";
-    //String color = Color.fromRGBO(100, 100, 100, 2) as String;
-    //file.writeAsString('TheMeow\nkitty\nbest book ever\ndate\ncolor\n', mode: FileMode.append);
+  // Function to retrieve data from book_data file
+  Future<List<String>> getData() async {
+    final file = await _localFile;
     Future<List<String>> futureLines = file.readAsLines();
     List<String> lines = await futureLines;
     return lines;
   }
 
+  // Initialize the app/shelf
   @override
   void initState() {
     super.initState();
@@ -67,6 +66,7 @@ class LedgableAppState extends State<LedgableApp> {
     _initAsync();
   }
 
+  // Initialize the shelf using data from book_data file
   Future<void> _initAsync() async {
     List<String> lines = await getData();
     for (int i = 0; i < lines.length; i += 5) {
