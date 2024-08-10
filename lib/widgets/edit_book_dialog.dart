@@ -31,6 +31,7 @@ class EditBookDialogState extends State<EditBookDialog> {
     tempColor = widget.bookData.color;
   }
 
+  // Checks whether the title is valid or not (title cannot be greater than 50 characters long)
   String? _validateTitle(){
     setState(() {
       if (_titleController.text.isEmpty) {
