@@ -4,6 +4,9 @@
 Ledgable is a book app created by readers, for readers. It helps users log and track the books they've read in a visually appealing way. Features include customizable cover colors, sorting options, and the ability to input any information you want about each book.
 
 
+![Picture1](https://github.com/user-attachments/assets/4d3aba8d-3a70-44d9-b4bb-efa486b90bc2)
+
+
 # Installation
 Step 1: On your android device, navigate to this [link](https://github.com/matthewdyso/Ledgable/releases/tag/v1.0) Download the Ledgable.apk file.
 
