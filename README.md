@@ -32,3 +32,5 @@ Step 5: Enjoy!
 #### Sorting Options
 - Located next to the **+** button, you'll find various sorting options. Use these to sort and organize your books according to your preferences.
 
+# Signing
+SHA256: 71:05:EB:09:4E:41:4F:1F:DA:52:89:E8:25:83:2E:CA:C4:48:6C:4C:B2:2E:50:81:7A:3B:FF:DF:44:8A:F7:93
