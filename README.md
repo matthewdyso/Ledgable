@@ -18,3 +18,17 @@ Step 4: Allow play protect to scan the app and accept all prompts about installi
 
 Step 5: Enjoy!
 
+# App Usage Instructions
+
+#### Adding a Book
+- Click the **+** icon in the top-right corner of the app.
+- A dialog box will appear. Enter the book's title (this is the only required field).
+- Click **Save** to add the book to your bookshelf.
+
+#### Editing or Deleting a Book
+- To edit or delete a book, click on the book’s entry in the bookshelf.
+- This will reopen the dialog box, where you can update the book's details or choose to delete it.
+
+#### Sorting Options
+- Located next to the **+** button, you'll find various sorting options. Use these to sort and organize your books according to your preferences.
+
