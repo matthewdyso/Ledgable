@@ -9,7 +9,7 @@ class EditBookManager extends BookManager {
   EditBookManager(this.onDelete);
 
   @override
-  void manageBook(BuildContext context, Book book) {
+  void manageBook(BuildContext context, Book book,) {
     showDialog(
       context: context,
       builder: (BuildContext context) {

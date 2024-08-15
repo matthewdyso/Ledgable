@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ledgable/managers/add_book_manager.dart';
 import 'package:ledgable/managers/book_manager.dart';
 import 'package:ledgable/managers/edit_book_manager.dart';
@@ -27,7 +28,6 @@ class LedgableAppState extends State<LedgableApp> {
   final SortBookManager sortBookManager = SortBookManager();
   bool isLoading = true;  // To handle loading state
 
-  // Function that returns document directory path
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
 
@@ -133,6 +133,11 @@ class LedgableAppState extends State<LedgableApp> {
 
   @override
   Widget build(BuildContext context) {
+    //Lock orientation to vertical
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Ledgable',
@@ -166,3 +171,4 @@ class LedgableAppState extends State<LedgableApp> {
     );
   }
 }
+
