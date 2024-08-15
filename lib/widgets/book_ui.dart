@@ -27,7 +27,6 @@ Future<File> editBook(Book book) async {
   if (index == -1) {
     throw Exception('Book not found');
   }
-  print("INDEX OF BOOK: $index");
   // Update the book entry
   lines[index - 3] = book.title;
   lines[index - 2] = book.author;
