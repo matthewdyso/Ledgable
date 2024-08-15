@@ -1,17 +1,17 @@
+![alt text](assets/Ledgable_logo.png)
+
 # Ledgable
-A new Flutter project.
+Ledgable is a book app created by readers, for readers. It helps users log and track the books they've read in a visually appealing way. Features include customizable cover colors, sorting options, and the ability to input any information you want about each book.
 
-Developed for IOS and Android devices, Ledgable is a book app for readers by readers. 
 
-## Getting Started
+# Installation
+Step 1: On your android device, navigate to this [link](build/app/outputs/apk/release/app-release.apk) 
 
-This project is a starting point for a Flutter application.
+Step 2: Accept any prompts you might see about the file being potentially harmful. For example, tap Download anyway or OK.
 
-A few resources to get you started if this is your first Flutter project:
+Step 3: Download the APK to the device's download folder and run the .apk file 
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Step 4: Allow play protect to scan the app and accept all prompts about installing the file
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Step 5: Enjoy!
+
