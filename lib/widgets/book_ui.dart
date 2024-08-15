@@ -36,7 +36,6 @@ Future<File> editBook(Book book) async {
 
   // Rewrite the file with the remaining lines
   final newContents = lines.join('\n') + (lines.isNotEmpty ? '\n' : '');
-  print(newContents);
   await file.writeAsString(newContents);
 
   // Write the updated lines back to the file
