@@ -20,7 +20,7 @@ Step 5: Enjoy tracking your reading!
 
 ## Installation Video
 
-[![Watch the video](https://img.youtube.com/vi/tdjwt9kY0lI/maxresdefault.jpg)](https://youtube.com/shorts/tdjwt9kY0lI?feature=share)
+[![Watch the video](https://img.youtube.com/vi/tdjwt9kY0lI/maxresdefault.jpg)](https://www.youtube.com/watch?v=tdjwt9kY0lI)
 
 
 
