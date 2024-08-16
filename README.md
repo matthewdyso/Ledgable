@@ -8,15 +8,20 @@ Ledgable is a book app created by readers, for readers. It helps users log and t
 
 
 # Installation
-Step 1: On your android device, navigate to this [link](https://github.com/matthewdyso/Ledgable/releases/tag/v1.0) Download the Ledgable.apk file.
+Step 1: On your Android device, navigate to this [link](https://github.com/matthewdyso/Ledgable/releases/tag/v1.0) Download the Ledgable.apk file.
 
-Step 2: Accept any prompts you might see about the file being potentially harmful. For example, tap Download anyway or OK.
+Step 2: Open the file after it has been downloaded. If you have never sideloaded an APK before, a prompt will pop up asking you to change the settings to allow the installation of unknown apps.
 
-Step 3: Download the APK to the device's download folder and run the .apk file 
+Step 3: Change the setting and allow the source. An install prompt should appear, press the install button.
 
-Step 4: Allow play protect to scan the app and accept all prompts about installing the file
+Step 4: A prompt will appear with two options: Done and Open. Press done to make the prompt disappear or press open to launch the app. The app will appear in the home screen or the app drawer.
 
-Step 5: Enjoy!
+Step 5: Enjoy tracking your reading!
+
+## Installation Video
+
+https://github.com/user-attachments/assets/644f6d54-cd16-4943-b136-7b4983d8ed61
+
 
 # App Usage Instructions
 
