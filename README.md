@@ -20,7 +20,8 @@ Step 5: Enjoy tracking your reading!
 
 ## Installation Video
 
-https://github.com/user-attachments/assets/644f6d54-cd16-4943-b136-7b4983d8ed61
+[![Watch the video](https://img.youtube.com/vi/tdjwt9kY0lI/maxresdefault.jpg)](https://youtube.com/shorts/tdjwt9kY0lI?feature=share)
+
 
 
 # App Usage Instructions
